@@ -1,0 +1,22 @@
+.thank {
+    margin-top: -50px;
+}
+.thankYou {
+    width: 78%;
+    margin: auto;
+    text-align: center;
+
+    .qrcode {
+        width: 220px;
+        height: 220px;
+        text-align: center;
+        margin: auto;
+        display: block;
+    }
+
+    p.bold {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+}

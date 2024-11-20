@@ -1,0 +1,6 @@
+.banner {
+  @include layout(836px, 498px);
+  @include m() {
+     @include layout(100%, null);
+  }
+}

@@ -1,0 +1,170 @@
+ #phone:invalid {
+     border: 2px solid rgb(194, 0, 0);
+ }
+
+ #phone:valid {
+     border: 2px solid map-get($colors, primary);
+ }
+
+ small {
+     font-size: 12px;
+     text-align: right;
+     display: block;
+     color: $gray500;
+     margin-top: 5px;
+
+ }
+
+ /* 任務 */
+ .form-group {
+     margin-bottom: 20px;
+     text-align: left;
+ }
+
+ input,
+ textarea {
+     width: 100%;
+     padding: 10px;
+     margin-top: 5px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+ }
+
+ input[type="checkbox"] {
+     width: 20px;
+     height: 20px;
+     background-color: #d3d3d3;
+ }
+
+ /* 美化選擇縣市的下拉選單 */
+ select {
+     width: 100%;
+     padding: 12px;
+     margin-top: 7px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     background-color: #fff;
+     font-size: 16px;
+     appearance: none;
+     /* 隱藏預設的瀏覽器箭頭 */
+     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="black" d="M7 10l5 5 5-5z"/></svg>');
+     background-repeat: no-repeat;
+     background-position: right 10px center;
+     background-size: 12px;
+     cursor: pointer;
+     transition: border-color 0.3s ease;
+ }
+
+ /* 當使用者點擊選擇欄位時的樣式 */
+ select:focus {
+     border-color: #4CAF50;
+     outline: none;
+     box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+ }
+
+ /* 當滑鼠移到下拉選單內部選項時的效果 */
+ option:hover {
+     background-color: #f1f1f1;
+     cursor: pointer;
+ }
+
+ b {
+     font-weight: bold;
+ }
+
+ /*  task1 */
+
+ .image-options {
+
+     &.task {
+         display: flex;
+         flex-direction: row;
+         flex-wrap: wrap;
+         margin-top: 15px;
+         align-content: center;
+         justify-content: center;
+     }
+ }
+
+ .condition-image {
+     width: 210px;
+     height: 140px;
+     cursor: pointer;
+     border-radius: 8px;
+     border: 1px solid map-get($colors, primary);
+     transition: border 0.3s ease;
+     @include m() {
+        width: 48%;
+        height: 100%;
+     }
+ }
+
+ .condition-image.selected {
+     border-color: #49e8f0;
+     border-radius: 8px;
+     border: 3px solid map-get($colors, primary);
+     /* 選取後的綠色邊框 */
+ }
+
+ #uncertain-button {
+     margin-top: 10px;
+    
+     color: white;
+     border-radius: 5px;
+     cursor: pointer;
+     transition: background-color 0.3s ease;
+     
+ }
+
+ .uncertain-button {
+     background-image: url('../images/unsure.jpg');
+     background-position: center;
+     background-repeat: no-repeat;
+     width: 500px;
+     height: 105px;
+    padding: 10px 20px;
+     border: 1px solid #49e8f0;
+     background-color: #fff;
+     margin: auto;
+     @include m() {
+      width: 100%;
+      background-size: contain;
+     }
+ }
+
+
+ .other-button {
+     background-image: url('../images/other.png');
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     width: 500px;
+     height: 105px;
+     border: 1px solid #49e8f0;
+     background-color: #fff;
+     margin: auto;
+     @include m() {
+      width: 100%;
+      min-height:auto;
+      background-size: contain;
+     }
+ }
+
+
+  #uncertain-button:hover {
+     background-color: #ffffff;
+ }
+
+ #uncertain-button.selected {
+     border: 3px solid #49e8f0;
+     border-radius: 10px;
+     /* 選取後的深紅色 */
+ }
+
+ .boxcenter {
+     text-align: center;
+     label{
+        display: block;
+       text-align: left;
+     } 
+ }

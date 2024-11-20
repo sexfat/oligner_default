@@ -1,0 +1,74 @@
+// 函式
+// function name() { }
+
+
+@mixin marginAuto() {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+// 預設值
+@mixin rect($w, $h:$w) {
+    width: $w;
+    height: $h;
+}
+
+
+@mixin btn($w, $paddingh, $r:false, $bgc:null) {
+    width: $w;
+    padding: $paddingh 0;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #000;
+    background-color: $bgc;
+
+    @if $r==true {
+        border-radius: 5px;
+    }
+
+    &:hover {
+        color: #fff;
+        background-color: darken($bgc, 20);
+        // background-color: lighten($bgc , 10);
+    }
+}
+
+// grid
+@mixin grid($col) {
+    @for $i from 1 through $col {
+        .col-#{$i} {
+            width: ($i / $col) * 100%;
+            @content;
+        }
+    }
+}
+
+
+// 運用
+
+
+// @include layout(full滿版 , 高度 )  如果不是滿版的話 帶數值進去即可
+@mixin layout($theme, $h) {
+    @if $theme==full {
+        width: 100vw;
+        height: $h;
+        display: block;
+        position: relative;
+    }
+
+    @else {
+        max-width: $theme;
+        width: 100%;
+        height: $h;
+        @include marginAuto();
+    }
+}
+
+
+@mixin m() {
+    @media screen and (max-width: 768px) {
+        @content;
+    }
+}

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>歐耐恩免費線上諮詢（照相）</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+    body {
+        background-color: #f9f9f9;
+    }
+    .banner {
+       width: 100%;
+       max-width: 550px;
+    }
+    .container {
+       top: -200px;
+       max-width: 550px;
+    }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo"><img src="images/logo.png" alt=""></div>
+            <div class="account"><img src="images/OLigner.png" alt=""></div>
+        </nav>
+    </header>
+    <div class="banner">
+        <img src="banner/banner.jpg" alt="">
+        <!-- 尺寸 836px 498px-->
+    </div>
+    <div class="container">
+        <h1>免費線上諮詢</h1>
+
+        <form id="task-form-1">
+            <input type="hidden" name="task_name" value="留下資料（拍照）">
+            <input type="hidden" id="selected-condition" name="condition" value="">
+            <input type="hidden" id="calculated-age" name="age">
+
+            <div class="form-group">
+                <label for="name">姓名</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="rocYear">民國年</label>
+                <input type="number" id="rocYear" name="rocYear" placeholder="例如：81" required>
+            </div>
+
+            <div class="form-group">
+                <label for="month">月份</label>
+                <input type="number" min="1" max="12" id="month" name="month" placeholder="1-12" required>
+                <small id="age-display"></small>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">電話</label>
+                <input type="tel" id="phone" name="phone" placeholder="09xxxxxxxx" maxlength="10" pattern="^09[0-9]{8}$" required>
+                <small id="phone-info">電話格式：09 開頭，共 10 位數字</small>
+            </div>
+
+            <!-- 狀況選擇 -->
+            <div class="form-group boxcenter">
+                <label>諮詢項目 <b>（可複選）</b></label>
+                <div class="image-options task">
+                    <img src="images/status1.jpg" class="condition-image" data-value="排列擁擠" alt="排列擁擠">
+                    <img src="images/status2.jpg" class="condition-image" data-value="暴牙/兔寶寶" alt="暴牙/兔寶寶">
+                    <img src="images/status3.jpg" class="condition-image" data-value="牙縫過大" alt="牙縫過大">
+                    <img src="images/status4.jpg" class="condition-image" data-value="戽斗" alt="戽斗">
+                </div>
+                <button class="uncertain-button" type="button" id="uncertain-button">我不確定</button>
+            </div>
+
+            <!-- 縣市選擇 -->
+            <div class="form-group">
+                <label for="city">居住縣市：</label>
+                <select id="city" name="city" required>
+                    <option value="" selected disabled>請選擇縣市</option>
+                </select>
+            </div>
+
+            <!-- 區域選擇 -->
+            <div class="form-group">
+                <label for="region">區域別：</label>
+                <select id="region" name="region" required>
+                    <option value="" selected disabled>請先選擇縣市</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="email">信箱：</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="remark">備註 (非必填)</label>
+                <textarea id="remark" name="remark" maxlength="150" rows="3" placeholder="最多150字"
+                    oninput="updateCharCount()"></textarea>
+                <small id="char-count">剩餘字數：150</small>
+            </div>
+
+            <button type="button" id="next-button" disabled>下一步，拍照</button>
+        </form>
+
+        <a href="index.html" class="back-button">回上一頁</a>
+          <footer>
+           <p>© 2024 三益海棠股份有限公司 OLigner 歐耐恩   <br>all rights reserved  版權所有</p>
+        </footer>
+    </div>
+
+    <script>
+        const citySelect = document.getElementById('city');
+        const regionSelect = document.getElementById('region');
+        const conditionImages = document.querySelectorAll('.condition-image');
+        const uncertainButton = document.getElementById('uncertain-button');
+        const selectedConditionInput = document.getElementById('selected-condition');
+        const remarkTextarea = document.getElementById('remark');
+        const charCount = document.getElementById('char-count');
+        const nextButton = document.getElementById('next-button');
+        const phoneInput = document.getElementById('phone');
+        const phoneInfo = document.getElementById('phone-info');
+        const ageDisplay = document.getElementById('age-display');
+        const calculatedAgeInput = document.getElementById('calculated-age');
+
+        let selectedConditions = [];
+
+        function calculateAge() {
+            const currentYear = new Date().getFullYear();
+            const currentMonth = new Date().getMonth() + 1;
+            const rocYear = parseInt(document.getElementById("rocYear").value, 10);
+            const birthMonth = parseInt(document.getElementById("month").value, 10);
+
+            if (!rocYear || !birthMonth || birthMonth < 1 || birthMonth > 12) {
+                ageDisplay.textContent = "請輸入有效的民國年和月份";
+                return;
+            }
+
+            const birthYear = rocYear + 1911;
+            let age = currentYear - birthYear;
+            if (birthMonth > currentMonth) age -= 1;
+            calculatedAgeInput.value = age;  // 儲存年齡於隱藏欄位
+            ageDisplay.textContent = `年齡：約 ${age} 歲`;
+        }
+
+        document.getElementById("rocYear").addEventListener("input", calculateAge);
+        document.getElementById("month").addEventListener("input", calculateAge);
+
+        phoneInput.addEventListener('input', function () {
+            const remainingDigits = 10 - phoneInput.value.length;
+            phoneInfo.textContent = `電話格式：09 開頭，共 10 位數字，剩餘 ${remainingDigits} 位`;
+            const isPhoneValid = phoneInput.value.match(/^09[0-9]{8}$/) !== null;
+            phoneInput.setCustomValidity(isPhoneValid ? '' : '請填入有效的台灣手機號碼，09開頭共10位數');
+            checkFormValidity();
+        });
+
+        function checkFormValidity() {
+            const allFilled = requiredFields.every(field => field.value.trim() !== '');
+            const conditionFilled = selectedConditionInput.value.trim() !== '';
+            const isPhoneValid = phoneInput.value.match(/^09[0-9]{8}$/) !== null;
+            nextButton.disabled = !(allFilled && conditionFilled && isPhoneValid);
+        }
+
+        const form = document.getElementById('task-form-1');
+        const requiredFields = Array.from(form.querySelectorAll('input[required], select[required]'));
+
+        // 狀況圖片多選邏輯
+        conditionImages.forEach(image => {
+            image.addEventListener('click', function () {
+                if (uncertainButton.classList.contains('selected')) {
+                    uncertainButton.classList.remove('selected');
+                    selectedConditions = [];
+                }
+
+                this.classList.toggle('selected');
+                const value = this.getAttribute('data-value');
+
+                if (this.classList.contains('selected')) {
+                    selectedConditions.push(value);
+                } else {
+                    selectedConditions = selectedConditions.filter(cond => cond !== value);
+                }
+
+                selectedConditionInput.value = selectedConditions.join(', ');
+                checkFormValidity();
+            });
+        });
+
+        uncertainButton.addEventListener('click', function () {
+            conditionImages.forEach(img => img.classList.remove('selected'));
+            selectedConditions = [];
+            this.classList.add('selected');
+            selectedConditionInput.value = '我不確定';
+            checkFormValidity();
+        });
+
+        fetch('regions.json')
+            .then(response => response.json())
+            .then(data => {
+                Object.keys(data).forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+
+                citySelect.addEventListener('change', () => {
+                    const selectedCity = citySelect.value;
+                    const regions = data[selectedCity] || [];
+                    regionSelect.innerHTML = '<option value="" selected disabled>請選擇區域</option>';
+                    regions.forEach(region => {
+                        const option = document.createElement('option');
+                        option.value = region;
+                        option.textContent = region;
+                        regionSelect.appendChild(option);
+                    });
+                });
+            })
+            .catch(error => console.error('無法載入縣市資料:', error));
+
+        function updateCharCount() {
+            const remaining = 150 - remarkTextarea.value.length;
+            charCount.textContent = `剩餘字數：${remaining}`;
+        }
+
+        requiredFields.forEach(field => {
+            field.addEventListener('input', checkFormValidity);
+            field.addEventListener('change', checkFormValidity);
+        });
+
+        checkFormValidity();
+
+        nextButton.addEventListener('click', () => {
+            const formData = {
+                task_name: form.task_name.value,
+                condition: selectedConditionInput.value,
+                name: form.name.value,
+                rocYear: form.rocYear.value,
+                month: form.month.value,
+                age: calculatedAgeInput.value,  // 儲存計算後的年齡
+                phone: form.phone.value,
+                city: form.city.value,
+                region: form.region.value,
+                email: form.email.value,
+                remark: form.remark.value
+            };
+            localStorage.setItem('taskData', JSON.stringify(formData));
+            window.location.href = 'task1_camera.html';
+        });
+    </script>
+</body>
+
+</html>

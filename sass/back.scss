@@ -1,0 +1,220 @@
+// base
+@import 'base/reset';
+@import 'base/font';
+@import 'base/color';
+@import 'base/common';
+@import 'base/rwd';
+// mixin 
+@import 'mixin/mixin';
+// module
+@import 'module/btn';
+
+// layout
+@import 'layout/header';
+@import 'layout/body';
+@import 'layout/banner';
+@import 'layout/footer';
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-family: "Noto Sans TC", sans-serif;
+    font-optical-sizing: auto;
+
+}
+
+* {
+    box-sizing: border-box;
+
+}
+
+/* 後台 */
+.back {
+    max-width: 1440px;
+    width: 100%;
+    margin: 30px auto 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.backend tbody tr td:nth-child(9),
+.backend tbody tr td:nth-child(10) {
+    font-size: 14px;
+    color: #474747;
+}
+
+.backend tbody tr td:nth-child(11) {
+    font-size: 14px;
+    color: #474747;
+    width: 200px;
+}
+
+.backend tbody tr td:nth-child(12) {
+    width: 260px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+
+.backend tbody tr td:nth-child(13) {
+    font-size: 12px;
+    color: #474747;
+    width: 100px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    min-height: 70px;
+}
+
+.img_photo {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+
+}
+
+.no_photo {
+    border: initial;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    /* top: -1px */
+}
+
+th {
+    background-color: map-get($colors, primary);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* 滑鼠移過去的 Hover 效果 */
+tr:hover {
+    background-color: #d6fbb2;
+    cursor: pointer;
+}
+
+.search-form {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.search-form button {
+    padding: 8px 20px;
+    background-color: map-get($colors, primary);
+    width: 150px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: darken(map-get($colors, primary), 10);
+}
+
+.function {
+    width: 100%;
+    text-align: right;
+}
+
+.logout-button {
+    padding: 10px 20px;
+    background-color: #878787;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+    position: relative;
+    /* margin-right: 20px; */
+    margin-top: 10px;
+    font-size: 13px;
+
+}
+
+/* 特別為重置按鈕設定樣式 */
+.search-form button[type="button"] {
+    border: 1px solid map-get($colors, primary);
+    color: map-get($colors, primary);
+    background-color: initial;
+}
+
+.search-form button[type="button"]:hover {
+    background-color: darken(map-get($colors, primary), 10);
+    color: #fff;
+
+}
+
+.export-button {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0px auto 5px;
+    display: block;
+    padding: 10px;
+    border: 1px solid map-get($colors, primary);
+    color: map-get($colors, primary);
+    background-color:initial;
+    &:hover {
+        color:#f2f2f2
+    }
+}
+
+
+/* 新增批次刪除按鈕的樣式 */
+.delete-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #d32f2f;
+}
+
+.age p {
+    font-size: 13px;
+    margin: 3px 0px;
+}
+
+.task_name {
+    font-size: 13px;
+    margin: 3px 0px;
+}
+
+.name {
+    width: 100px;
+
+}
+
+thead tr th {
+    font-size: 14px;
+}

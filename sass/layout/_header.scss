@@ -1,0 +1,26 @@
+header {
+    width: 100%;
+    background-color: map-get($colors, primary);
+    @include m(){
+       padding-left: 15px;
+       padding-right: 15px;
+    }
+
+    nav {
+        @include layout(836px, 60px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .logo {
+            width: 45px;
+            height: 50px;
+        }
+
+        .account {
+            width: 207px;
+            height: 32px;
+        }
+    }
+
+}

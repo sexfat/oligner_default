@@ -1,0 +1,26 @@
+body {
+  font-family:"Noto Sans TC" , "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: $fontSize;
+  color: $fontColor;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.container {
+    @include layout(500px, null);
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 25px;
+    position: relative;
+    top: -150px;
+    line-height: 28px;
+    @include m(){
+      margin-top: -100px;
+    }
+    // box-shadow: 1px 1px 10px #d8d8d8;
+}
+

@@ -1,0 +1,43 @@
+// base
+@import 'base/reset';
+@import 'base/font';
+@import 'base/color';
+@import 'base/common';
+@import 'base/rwd';
+// mixin 
+
+    @import 'mixin/mixin';
+
+
+
+
+
+// module
+@import 'module/btn';
+
+// layout
+@import 'layout/header';
+@import 'layout/body';  
+@import 'layout/banner';  
+@import 'layout/footer';  
+
+// @import 'layout/login';
+
+
+//page 
+@import  'page/index';
+@import  'page/task';
+@import  'page/step';
+@import  'page/thank';
+
+
+
+.login {
+ width: 100%;
+ max-width: 600px;
+ margin:150px auto 0;    
+}
+
+
+
+ 

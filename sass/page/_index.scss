@@ -1,0 +1,180 @@
+/* Reset 一些預設樣式 */
+
+
+
+.image-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.image-container {
+    width: 100%;
+    max-width: 440px;
+    height: 104px;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    border:  1px solid #49e8f0;
+    flex: 1;
+    transition: border-color 0.3s ease;
+    margin-bottom: 15px;
+}
+
+
+.image-container img {
+    width: 100%;
+    // height: 104px;
+    object-fit: cover;
+    border-radius: 15px;
+   
+    
+}
+
+.image-container.selected {
+   border:  3px solid map-get($colors, primary);
+   background-color: #f9ffff;
+   border-radius: 15px;
+//    height: 104px;
+   position: relative;
+}
+
+// 第三個任務
+
+.image-container:nth-child(3) { 
+    padding: 20px;
+    border: initial;
+    text-align: right;
+}
+
+.image-container:nth-child(3).selected { 
+    padding: 20px;
+    border: 3px solid map-get($colors, primary);
+    p {
+      color: map-get($colors, primary);
+    
+    }
+
+}
+
+
+
+.privacy-container {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    label {
+      position: relative;
+      top:2px;
+      left: 10px;
+    }
+    a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+}
+
+/* #next-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed;
+    transition: background-color 0.3s ease;
+}
+
+#next-button.enabled {
+    background-color: #4CAF50;
+    cursor: pointer;
+} */
+
+
+
+
+
+
+
+
+
+
+
+/* 隱私權彈窗 */
+/* 隱私權彈窗的基本樣式 */
+.modal {
+    display: none;
+    position: fixed;
+    line-height: 24px;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 半透明背景 */
+    opacity: 0;
+    /* 預設透明 */
+    transition: opacity 0.3s ease;
+    /* 背景漸變動畫 */
+}
+
+/* 彈窗顯示時的樣式 */
+.modal.show {
+    display: block;
+    opacity: 1;
+    /* 背景變為不透明 */
+}
+
+/* 彈窗內容區域 */
+.modal-content {
+    font-size: 14px;
+    background-color: #fff;
+    width: 100%;
+    @include m(){
+     width: 96%;
+     line-height: 20px;
+    }
+    max-width: 1300px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 600px;
+    overflow: auto;
+
+    /* 垂直與水平置中 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 置中對齊 */
+
+    /* 動畫效果 */
+    opacity: 0;
+    transform: translate(-50%, -60%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 顯示彈窗時的內容動畫 */
+.modal.show .modal-content {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    /* 回到原位置 */
+}
+
+/* 關閉按鈕樣式 */
+.close-button {
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-button:hover {
+    color: red;
+}
+

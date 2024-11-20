@@ -1,0 +1,41 @@
+button {
+    width: 100%;
+    padding: 16px;
+    background-color: map-get($colors, primary);
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: darken(map-get($colors, primary), 5);
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+
+/* 任務回到上一頁 */
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #e7e7e7;
+    color: #6c707a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #bababa;
+}

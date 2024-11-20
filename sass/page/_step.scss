@@ -1,0 +1,159 @@
+.container_camera {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+
+    .stepbar {
+        background-color: #252525e3;
+        padding: 20px;
+        color: #fff;
+        display: flex;
+        gap: 10px;
+
+        #step-image {
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    }
+
+    .mask {
+        position: relative;
+
+        .mask_image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        video {
+            width: 100%;
+
+            @include m() {
+                min-height: 667px;
+            }
+
+            height: auto;
+        }
+    }
+}
+
+.step-content {
+    #stepOrder {
+        font-size: 12px;
+        color: #A1A5B7;
+        margin: 5px 0 5px;
+    }
+
+    #step-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #FDFDFD;
+        line-height: 30px;
+    }
+
+    #step-instruction {
+        font-size: 15px;
+        color: #FDFDFD;
+    }
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+#photos {
+    background-color: #3c3c3c;
+    width: 100%;
+    height: 90px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#retake,
+#next-step,
+#retake-all {
+    display: none;
+}
+
+
+
+.photo-container {
+    ul {
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        @include m() {
+            gap: 7px;
+        }
+
+        li {
+            width: 70px;
+            height: 70px;
+            background-color: #060606;
+            border-radius: 5px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+}
+
+.capture {
+    img {
+        top: 3px;
+        position: relative;
+        right: 5px;
+    }
+}
+
+.retake,
+.retake-all {
+    margin-top: 20px;
+    background-color: initial;
+    border: 1px solid map-get($colors, primary);
+    color: map-get($colors, primary);
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+.retake-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+}
+
+.submit-photos {
+    margin-top: 20px;
+}
+
+.switch-camera {
+    margin-top: 20px;
+    font-size: 14px;
+    background-color: initial;
+    border: 1px solid map-get($colors, primary);
+    color: map-get($colors, primary);
+    padding: 10px;
+
+    &:hover {
+        color: #fff;
+    }
+}
