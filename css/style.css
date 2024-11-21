@@ -549,6 +549,7 @@ b {
   left: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 .container_camera .mask video {
   width: 100%;
@@ -556,7 +557,7 @@ b {
 }
 @media screen and (max-width: 768px) {
   .container_camera .mask video {
-    min-height: 667px;
+    min-height: 500px;
   }
 }
 
@@ -688,4 +689,8 @@ b {
   width: 100%;
   max-width: 600px;
   margin: 150px auto 0;
+}
+
+input, textarea {
+  font-size: 16px;
 }/*# sourceMappingURL=style.css.map */
