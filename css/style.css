@@ -664,7 +664,13 @@ b {
 }
 
 .thank {
-  margin-top: -50px;
+  margin-top: -10px;
+}
+@media screen and (max-width: 768px) {
+  .thank {
+    margin-top: -130px;
+    padding: 18px;
+  }
 }
 
 .thankYou {

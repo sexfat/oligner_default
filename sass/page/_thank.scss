@@ -1,5 +1,9 @@
 .thank {
-    margin-top: -50px;
+    margin-top: -10px;
+    @include m() {
+        margin-top: -130px;
+        padding: 18px;
+    }
 }
 .thankYou {
     width: 78%;

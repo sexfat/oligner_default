@@ -89,6 +89,7 @@
         const stepInstruction = document.getElementById('step-instruction');
         const stepImageSrc = document.getElementById('step-image-src');
         const stepOrder = document.getElementById('stepOrder');
+        const maskImage = document.querySelector('.mask_image');
 
         const context = canvas.getContext('2d');
 
@@ -113,6 +114,10 @@
                     }
                 });
                 video.srcObject = stream;
+
+                video.onloadedmetadata = () => {
+                    maskImage.style.height = `${video.videoHeight}px`;
+                };
             } catch (error) {
                 alert('無法啟用攝影機');
                 console.error(error);
@@ -125,7 +130,8 @@
             stepTitle.textContent = steps[currentStep].title;
             stepInstruction.textContent = steps[currentStep].instruction;
             stepImageSrc.src = steps[currentStep].image;
-            document.querySelector('.mask_image').src = steps[currentStep].mask; // 更新遮罩圖片
+            maskImage.src = steps[currentStep].mask; // 更新遮罩圖片
+            maskImage.style.height = `${video.videoHeight}px`; // 動態設置遮罩高度
         }
 
         // 拍攝照片
