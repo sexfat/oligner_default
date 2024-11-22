@@ -123,14 +123,14 @@ $result = $stmt->get_result();
                         <th>ID</th>
                         <th>任務名稱</th>
                         <th class="name">姓名</th>
-                        <th>出生年月年齡</th>
+                        <th>年月年齡</th>
                         <th>電話</th>
                         <th>信箱</th>
                         <th>狀況</th>
                         <th>縣市</th>
-                        <th>區域別</th>
+                        <th>區域</th>
                         <th>備註</th>
-                        <th>照片</th>
+                        <th class="pth">照片</th>
                         <th>提交時間</th>
                     </tr>
                 </thead>

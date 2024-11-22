@@ -33,7 +33,6 @@
         </nav>
     </header>
     <div class="container_camera">
-        <!-- <h1>請依序完成 5 個拍照步驟</h1> -->
         <div id="step-description" class="stepbar">
             <div id="step-image"><img id="step-image-src" src="images/t1.jpg" alt=""></div>
             <div class="step-content">
@@ -59,23 +58,11 @@
             </div>
             <div class="camera_bar">
                 <button class="capture" id="capture"><img src="images/camera.png" alt="" srcset="">拍照</button>
-               
                 <button class="switch-camera" id="switch-camera">切換鏡頭</button>
-                 <button class="next-step" id="next-step">下一步</button>
-
-                <button class="retake" id="retake" style="display: none;">重新拍攝</button>
-
-
-                <button class="retake-all" id="retake-all" style="display: none;">重新拍攝全部</button>
-
                 <button class="submit-photos" id="submit-photos" style="display: none;">提交所有照片</button>
+                <button class="retake-all" id="retake-all" style="display: none;">全部重新</button>
             </div>
-
-
         </div>
-
-
-
 
         <div class="loading-overlay" id="loading-overlay">圖片正在上傳中...</div>
     </div>
@@ -83,12 +70,9 @@
     <script>
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
-        const photosContainer = document.getElementById('photos');
         const captureButton = document.getElementById('capture');
-        const nextStepButton = document.getElementById('next-step');
-        const retakeButton = document.getElementById('retake');
-        const submitButton = document.getElementById('submit-photos');
         const retakeAllButton = document.getElementById('retake-all');
+        const submitButton = document.getElementById('submit-photos');
         const switchCameraButton = document.getElementById('switch-camera');
         const loadingOverlay = document.getElementById('loading-overlay');
 
@@ -101,11 +85,11 @@
         const context = canvas.getContext('2d');
 
         const steps = [
-            { step: 'Step.1', title: '正面咬合照', instruction: '請拍攝您的正面咬合照片。', image: 'images/t1.jpg', mask: 'images/mask01.png' },
-            { step: 'Step.2', title: '上顎齒列照', instruction: '請拍攝您的上顎齒列照片。', image: 'images/t2.jpg', mask: 'images/mask02.png' },
-            { step: 'Step.3', title: '下顎齒列照', instruction: '請拍攝您的下顎齒列照片。', image: 'images/t3.jpg', mask: 'images/mask03.png' },
-            { step: 'Step.4', title: '側臉咬合照', instruction: '請拍攝您的側臉咬合照片。', image: 'images/t4.jpg', mask: 'images/mask04.png' },
-            { step: 'Step.5', title: '側臉美觀線', instruction: '請拍攝您的側臉美觀線。', image: 'images/t5.jpg', mask: 'images/mask05.png' },
+            { step: 'Step.1', title: '正面咬合照', instruction: '請拍攝您的正面咬合照片。', image: 'images/t1.jpg', mask: 'images/mask1.svg' },
+            { step: 'Step.2', title: '上顎齒列照', instruction: '請拍攝您的上顎齒列照片。', image: 'images/t2.jpg', mask: 'images/mask2.svg' },
+            { step: 'Step.3', title: '下顎齒列照', instruction: '請拍攝您的下顎齒列照片。', image: 'images/t3.jpg', mask: 'images/mask3.svg' },
+            { step: 'Step.4', title: '側臉咬合照', instruction: '請拍攝您的側臉咬合照片。', image: 'images/t4.jpg', mask: 'images/mask4.svg' },
+            { step: 'Step.5', title: '側臉美觀線', instruction: '請拍攝您的側臉美觀線。', image: 'images/t5.jpg', mask: 'images/mask5.svg' },
         ];
 
         let currentStep = 0;
@@ -121,7 +105,6 @@
                     }
                 });
                 video.srcObject = stream;
-
                 video.onloadedmetadata = () => {
                     maskImage.style.height = `${video.videoHeight}px`;
                 };
@@ -152,40 +135,20 @@
 
                 const img = document.createElement('img');
                 img.src = URL.createObjectURL(blob);
-                img.dataset.index = currentStep;
                 document.getElementById(`photo${currentStep + 1}`).appendChild(img);
 
-                nextStepButton.style.display = currentStep < 4 ? 'inline-block' : 'none';
-                retakeButton.style.display = 'inline-block';
-
-                captureButton.style.display = 'none';
-                if (currentStep === 4) {
+                // 自動切換到下一步
+                if (currentStep < 4) {
+                    currentStep++;
+                    updateStep();
+                } else {
+                    // 最後一步顯示提交與全部重新拍攝
                     submitButton.style.display = 'inline-block';
                     retakeAllButton.style.display = 'inline-block';
+                    captureButton.style.display = 'none';
+                    switchCameraButton.style.display = 'none';
                 }
             }, 'image/png');
-        });
-
-        // 下一步
-        nextStepButton.addEventListener('click', () => {
-            currentStep++;
-            updateStep();
-
-            captureButton.style.display = 'inline-block';
-            nextStepButton.style.display = 'none';
-            retakeButton.style.display = 'none';
-        });
-
-        // 重新拍攝單張
-        retakeButton.addEventListener('click', () => {
-            const img = document.getElementById(`photo${currentStep + 1}`).querySelector('img');
-            if (img) {
-                img.remove();
-            }
-            photos[currentStep] = null;
-
-            captureButton.style.display = 'inline-block';
-            retakeButton.style.display = 'none';
         });
 
         // 重新拍攝全部
@@ -195,11 +158,9 @@
                 document.getElementById(`photo${i}`).innerHTML = '';
             }
             currentStep = 0;
-
             updateStep();
             captureButton.style.display = 'inline-block';
-            nextStepButton.style.display = 'none';
-            retakeButton.style.display = 'none';
+            switchCameraButton.style.display = 'inline-block';
             submitButton.style.display = 'none';
             retakeAllButton.style.display = 'none';
         });
@@ -207,11 +168,6 @@
         // 提交所有照片
         submitButton.addEventListener('click', () => {
             const formData = new FormData();
-            const taskData = JSON.parse(localStorage.getItem('taskData')) || {};
-
-            for (const key in taskData) {
-                formData.append(key, taskData[key]);
-            }
 
             photos.forEach((photo, index) => {
                 if (photo) {
@@ -228,7 +184,6 @@
                 .then(response => response.text())
                 .then(result => {
                     alert('資料提交成功！');
-                    localStorage.removeItem('taskData');
                     window.location.href = 'thank_you.html';
                 })
                 .catch(error => {
@@ -252,7 +207,6 @@
 
         updateStep(); // 初始化第一個步驟
         startCamera(); // 啟動攝影機
-
     </script>
 </body>
 

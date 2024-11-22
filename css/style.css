@@ -167,6 +167,13 @@ body * {
   }
 }
 
+select {
+  -webkit-appearance: none; /* 隱藏 iOS 預設樣式 */
+  -moz-appearance: none; /* 隱藏 Firefox 預設樣式 */
+  appearance: none; /* 隱藏通用預設樣式 */
+  color: #b0b0b0; /* 設置文字顏色 */
+}
+
 .banner {
   max-width: 836px;
   width: 100%;
@@ -210,26 +217,25 @@ footer p {
 .image-container {
   width: 100%;
   max-width: 440px;
-  height: 104px;
+  height: 105px;
   border-radius: 12px;
   cursor: pointer;
   overflow: hidden;
   border: 1px solid #49e8f0;
   flex: 1;
   transition: border-color 0.3s ease;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .image-container img {
   width: 100%;
-  height: 104px;
   object-fit: cover;
   border-radius: 15px;
 }
 
 .image-container.selected {
   border: 3px solid #2DCCD3;
-  background-color: #f9ffff;
+  background-color: #daffff;
   border-radius: 15px;
   position: relative;
 }
@@ -551,9 +557,9 @@ b {
 .container_camera .mask .mask_image {
   position: absolute;
   top: -150px;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  left: 13%;
+  width: 80%;
+  height: 90%;
   object-fit: cover;
 }
 .container_camera .mask video {
@@ -585,7 +591,6 @@ b {
   display: block;
 }
 
-#retake,
 #next-step,
 #retake-all {
   display: none;
@@ -613,10 +618,6 @@ b {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.submit-photos {
-  margin-top: 20px;
 }
 
 @media screen and (max-width: 768px) {
@@ -654,6 +655,9 @@ b {
   position: relative;
   right: 5px;
 }
+.bottom_bar .camera_bar .submit-photos {
+  width: 70%;
+}
 .bottom_bar .camera_bar .next-step {
   width: 70%;
 }
@@ -667,16 +671,13 @@ b {
 .bottom_bar .camera_bar .switch-camera:hover {
   color: #fff;
 }
-.bottom_bar .camera_bar .retake,
 .bottom_bar .camera_bar .retake-all {
   width: 30%;
   font-size: 12px;
-  margin-top: 20px;
   background-color: initial;
   border: 1px solid #2DCCD3;
   color: #2DCCD3;
 }
-.bottom_bar .camera_bar .retake:hover,
 .bottom_bar .camera_bar .retake-all:hover {
   color: #fff;
 }
@@ -692,7 +693,7 @@ b {
 }
 
 .thankYou {
-  width: 78%;
+  width: 87%;
   margin: auto;
   text-align: center;
 }
@@ -710,6 +711,7 @@ b {
   background-color: rgba(45, 203, 211, 0.6509803922);
   color: white;
   padding: 10px 0;
+  border-radius: 8px;
 }
 
 .lines {
