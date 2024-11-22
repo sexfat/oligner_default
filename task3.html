@@ -7,18 +7,19 @@
     <title>歐耐恩免費線上諮詢（美白）</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-    body {
-        background-color: #f9f9f9;
-    }
-    .banner {
-       width: 100%;
-       max-width: 550px;
-    }
-    .container {
-       top: -200px;
-       max-width: 550px;
-    }
+        body {
+            background-color: #f9f9f9;
+        }
 
+        .banner {
+            width: 100%;
+            max-width: 550px;
+        }
+
+        .container {
+            top: -200px;
+            max-width: 550px;
+        }
     </style>
 </head>
 
@@ -53,13 +54,28 @@
 
             <div class="form-group">
                 <label for="month">月份</label>
-                <input type="number" min="1" max="12" id="month" name="month" placeholder="1-12" required>
+                <select id="month" name="month" required>
+                    <option value="" disabled selected>請選擇月份</option>
+                    <option value="1">1 月</option>
+                    <option value="2">2 月</option>
+                    <option value="3">3 月</option>
+                    <option value="4">4 月</option>
+                    <option value="5">5 月</option>
+                    <option value="6">6 月</option>
+                    <option value="7">7 月</option>
+                    <option value="8">8 月</option>
+                    <option value="9">9 月</option>
+                    <option value="10">10 月</option>
+                    <option value="11">11 月</option>
+                    <option value="12">12 月</option>
+                </select>
                 <small id="age-display"></small>
             </div>
 
             <div class="form-group">
                 <label for="phone">電話</label>
-                <input type="tel" id="phone" name="phone" placeholder="09xxxxxxxx" maxlength="10" pattern="^09[0-9]{8}$" required>
+                <input type="tel" id="phone" name="phone" placeholder="09xxxxxxxx" maxlength="10" pattern="^09[0-9]{8}$"
+                    required>
                 <small id="phone-info">電話格式：09 開頭，共 10 位數字</small>
             </div>
 
@@ -108,8 +124,8 @@
         </form>
 
         <a href="index.html" class="back-button">回上一頁</a>
-          <footer>
-           <p>© 2024 三益海棠股份有限公司 OLigner 歐耐恩   <br>all rights reserved  版權所有</p>
+        <footer>
+            <p>© 2024 三益海棠股份有限公司 OLigner 歐耐恩  <br>all rights reserved  版權所有</p>
         </footer>
     </div>
 
@@ -149,7 +165,7 @@
         }
 
         document.getElementById("rocYear").addEventListener("input", calculateAge);
-        document.getElementById("month").addEventListener("input", calculateAge);
+        document.getElementById("month").addEventListener("change", calculateAge);
 
         phoneInput.addEventListener('input', function () {
             const remainingDigits = 10 - phoneInput.value.length;

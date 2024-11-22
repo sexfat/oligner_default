@@ -218,3 +218,13 @@ tr:hover {
 thead tr th {
     font-size: 14px;
 }
+
+.s-func {
+  position: relative;
+  .del {
+    position: absolute;
+    right: 0;
+    top:-10px;
+  }
+
+}

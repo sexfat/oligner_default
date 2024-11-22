@@ -53,7 +53,21 @@
 
             <div class="form-group">
                 <label for="month">月份</label>
-                <input type="number" min="1" max="12" id="month" name="month" placeholder="1-12" required>
+                <select id="month" name="month" required>
+                    <option value="" disabled selected>請選擇月份</option>
+                    <option value="1">1 月</option>
+                    <option value="2">2 月</option>
+                    <option value="3">3 月</option>
+                    <option value="4">4 月</option>
+                    <option value="5">5 月</option>
+                    <option value="6">6 月</option>
+                    <option value="7">7 月</option>
+                    <option value="8">8 月</option>
+                    <option value="9">9 月</option>
+                    <option value="10">10 月</option>
+                    <option value="11">11 月</option>
+                    <option value="12">12 月</option>
+                </select>
                 <small id="age-display"></small>
             </div>
 
@@ -147,7 +161,7 @@
         }
 
         document.getElementById("rocYear").addEventListener("input", calculateAge);
-        document.getElementById("month").addEventListener("input", calculateAge);
+           document.getElementById("month").addEventListener("change", calculateAge);
 
         phoneInput.addEventListener('input', function () {
             const remainingDigits = 10 - phoneInput.value.length;

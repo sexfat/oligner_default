@@ -394,4 +394,13 @@ tr:hover {
 
 thead tr th {
   font-size: 14px;
+}
+
+.s-func {
+  position: relative;
+}
+.s-func .del {
+  position: absolute;
+  right: 0;
+  top: -10px;
 }/*# sourceMappingURL=back.css.map */

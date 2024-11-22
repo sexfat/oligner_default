@@ -47,30 +47,37 @@
             <video id="video" autoplay playsinline></video>
             <canvas id="canvas" style="display: none;"></canvas>
         </div>
-        <div id="photos" class="photo-container">
-            <ul>
-                <li id="photo1"></li>
-                <li id="photo2"></li>
-                <li id="photo3"></li>
-                <li id="photo4"></li>
-                <li id="photo5"></li>
-            </ul>
+        <div class="bottom_bar">
+            <div id="photos" class="photo-container">
+                <ul>
+                    <li id="photo1"></li>
+                    <li id="photo2"></li>
+                    <li id="photo3"></li>
+                    <li id="photo4"></li>
+                    <li id="photo5"></li>
+                </ul>
+            </div>
+            <div class="camera_bar">
+                <button class="capture" id="capture"><img src="images/camera.png" alt="" srcset="">拍照</button>
+               
+                <button class="switch-camera" id="switch-camera">切換鏡頭</button>
+                 <button class="next-step" id="next-step">下一步</button>
+
+                <button class="retake" id="retake" style="display: none;">重新拍攝</button>
+
+
+                <button class="retake-all" id="retake-all" style="display: none;">重新拍攝全部</button>
+
+                <button class="submit-photos" id="submit-photos" style="display: none;">提交所有照片</button>
+            </div>
+
+
         </div>
 
-        <button class="capture" id="capture"><img src="images/camera.png" alt="" srcset="">拍照</button>
-        <button class="next-step" id="next-step">下一步</button>
-        <div class="retake-container">
-            <button class="retake" id="retake" style="display: none;">重新拍攝</button>
-            <button class="retake-all" id="retake-all" style="display: none;">重新拍攝全部</button>
-        </div>
-        <button class="submit-photos" id="submit-photos" style="display: none;">提交所有照片</button>
-        <button class="switch-camera" id="switch-camera">切換鏡頭</button>
+
+
 
         <div class="loading-overlay" id="loading-overlay">圖片正在上傳中...</div>
-
-        <footer>
-            <p>© 2024 三益海棠股份有限公司 OLigner 歐耐恩  <br>all rights reserved  版權所有</p>
-        </footer>
     </div>
 
     <script>

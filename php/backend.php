@@ -103,13 +103,18 @@ $result = $stmt->get_result();
     </form>
     <div class="back">
         <h1>使用者資料</h1>
+        <div class="s-func">
+            <div>
+                <form method="GET" action="backend.php" class="search-form">
+                    <input type="text" name="search" placeholder="輸入姓名或電話" value="<?= htmlspecialchars($searchTerm) ?>">
+                    <button type="submit">搜尋</button>
+                    <button type="button" onclick="resetSearch()">重置</button>
+                </form>
+            </div>
 
-        <form method="GET" action="backend.php" class="search-form">
-            <input type="text" name="search" placeholder="輸入姓名或電話" value="<?= htmlspecialchars($searchTerm) ?>">
-            <button type="submit">搜尋</button>
-            <button type="button" onclick="resetSearch()">重置</button>
-        </form>
+            <div class="del"><button type="submit" class="delete-button">批次刪除</button></div>
 
+        </div>
         <form method="POST" action="delete.php" onsubmit="return confirmDelete();">
             <table class="backend">
                 <thead>
@@ -172,8 +177,6 @@ $result = $stmt->get_result();
                     <?php endif; ?>
                 </tbody>
             </table>
-
-            <button type="submit" class="delete-button">批次刪除</button>
         </form>
     </div>
 

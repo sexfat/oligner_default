@@ -222,6 +222,7 @@ footer p {
 
 .image-container img {
   width: 100%;
+  height: 104px;
   object-fit: cover;
   border-radius: 15px;
 }
@@ -351,6 +352,10 @@ footer p {
 
 .close-button:hover {
   color: red;
+}
+
+.line {
+  text-decoration: underline;
 }
 
 #phone:invalid {
@@ -545,7 +550,7 @@ b {
 }
 .container_camera .mask .mask_image {
   position: absolute;
-  top: 0;
+  top: -150px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -554,11 +559,6 @@ b {
 .container_camera .mask video {
   width: 100%;
   height: auto;
-}
-@media screen and (max-width: 768px) {
-  .container_camera .mask video {
-    min-height: 500px;
-  }
 }
 
 .step-content #stepOrder {
@@ -583,14 +583,6 @@ b {
 
 .step.active {
   display: block;
-}
-
-#photos {
-  background-color: #3c3c3c;
-  width: 100%;
-  height: 90px;
-  overflow: hidden;
-  margin-bottom: 20px;
 }
 
 #retake,
@@ -623,43 +615,69 @@ b {
   object-fit: cover;
 }
 
-.capture img {
-  top: 3px;
-  position: relative;
-  right: 5px;
-}
-
-.retake,
-.retake-all {
-  margin-top: 20px;
-  background-color: initial;
-  border: 1px solid #2DCCD3;
-  color: #2DCCD3;
-}
-.retake:hover,
-.retake-all:hover {
-  color: #fff;
-}
-
-.retake-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
 .submit-photos {
   margin-top: 20px;
 }
 
-.switch-camera {
-  margin-top: 20px;
-  font-size: 14px;
+@media screen and (max-width: 768px) {
+  .bottom_bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #1b1b1b;
+  }
+}
+.bottom_bar #photos {
+  background-color: #3c3c3c;
+  width: 100%;
+  height: 90px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+@media screen and (max-width: 768px) {
+  .bottom_bar #photos {
+    margin-bottom: 5px;
+  }
+}
+.bottom_bar .camera_bar {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 5px;
+}
+.bottom_bar .camera_bar .capture {
+  width: 70%;
+}
+.bottom_bar .camera_bar .capture img {
+  top: 3px;
+  position: relative;
+  right: 5px;
+}
+.bottom_bar .camera_bar .next-step {
+  width: 70%;
+}
+.bottom_bar .camera_bar .switch-camera {
+  width: 30%;
+  font-size: 12px;
   background-color: initial;
   border: 1px solid #2DCCD3;
   color: #2DCCD3;
-  padding: 10px;
 }
-.switch-camera:hover {
+.bottom_bar .camera_bar .switch-camera:hover {
+  color: #fff;
+}
+.bottom_bar .camera_bar .retake,
+.bottom_bar .camera_bar .retake-all {
+  width: 30%;
+  font-size: 12px;
+  margin-top: 20px;
+  background-color: initial;
+  border: 1px solid #2DCCD3;
+  color: #2DCCD3;
+}
+.bottom_bar .camera_bar .retake:hover,
+.bottom_bar .camera_bar .retake-all:hover {
   color: #fff;
 }
 
@@ -686,9 +704,19 @@ b {
   display: block;
 }
 .thankYou p.bold {
-  font-size: 1.1rem;
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 600;
   margin-top: 20px;
+  background-color: rgba(45, 203, 211, 0.6509803922);
+  color: white;
+  padding: 10px 0;
+}
+
+.lines {
+  width: 28px;
+  position: relative;
+  top: 6px;
+  left: -6px;
 }
 
 .login {
