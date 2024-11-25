@@ -1,6 +1,6 @@
 <?php
 // 設置目標資料夾
-$target_dir = "banner/";
+$target_dir = "../banner/";
 
 // 確保目標資料夾存在，如果不存在則創建
 if (!is_dir($target_dir)) {
@@ -35,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
     // 嘗試將文件移動到目標資料夾
     if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
         echo "圖片上傳成功！<br>";
-        echo "圖片路徑：<a href='$target_file' target='_blank'>$target_file</a>";
+        echo "圖片路徑：<a href='$target_file' target='_blank'>$target_file</a><br>";
+        echo "返回上傳頁面：<a href='../upload.html' >返回</a>";
     } else {
         echo "圖片上傳失敗，請重試。";
     }

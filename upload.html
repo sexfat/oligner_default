@@ -1,16 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>上傳 Banner 圖片</title>
+    <style>
+        button {
+            width: 100%;
+            padding: 16px;
+            background-color: #2DCCD3;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 40px;
+
+        }
+
+        body {
+            text-align: center;
+        }
+        .wrapper {
+            max-width: 600px;
+            margin: auto;
+            line-height: 24px;
+        }
+        .note {
+            font-size: 16px;
+            color: #535968;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>上傳 Banner 圖片</h1>
-    <form action="upload_image.php" method="POST" enctype="multipart/form-data">
-        <label for="image">選擇圖片：(尺寸 836px 498px)</label>
-        <input type="file" name="image" id="image" accept="image/*" required>
-        <button type="submit">上傳圖片</button>
-    </form>
+    <div class="wrapper">
+
+        <h1>上傳圖片</h1>
+        <!-- 上傳圖片到banner資料夾功能  -->
+        <div class="note">
+          <p>首頁banner (尺寸 836px 498px) 圖片名稱.格式：banner.jpg</p>
+          <p>首頁按鈕第一張圖片 (尺寸 880px 210px) 圖片名稱.格式:image01.png(背景透明)</p>
+          <p>首頁按鈕第二張圖片 (尺寸 880px 210px) 圖片名稱.格式:image02.png(背景透明)</p>
+          <p>請注意：檔名格式要完全一樣，換完圖片後，請用無痕模式重新整理網頁</p>
+        
+        
+        </div>
+        <form action="./php/upload_image.php" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" id="image" accept="image/*" required>
+            <button type="submit">上傳圖片</button>
+        </form>
+    </div>
+
 </body>
+
 </html>

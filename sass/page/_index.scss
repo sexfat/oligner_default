@@ -25,8 +25,9 @@
 
 .image-container img {
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 15px;
+    height: 100%;
    
     
 }
