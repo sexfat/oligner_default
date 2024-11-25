@@ -164,6 +164,16 @@
             submitButton.style.display = 'none';
             retakeAllButton.style.display = 'none';
         });
+        // 切換鏡頭
+        switchCameraButton.addEventListener('click', () => {
+            currentFacingMode = currentFacingMode === "environment" ? "user" : "environment";
+            // 停止目前的攝影機
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(track => track.stop());
+            }
+            // 重新啟動攝影機
+            startCamera();
+        });
 
         // 提交所有照片
         submitButton.addEventListener('click', () => {
@@ -194,16 +204,7 @@
                 });
         });
 
-        // 切換鏡頭
-        switchCameraButton.addEventListener('click', () => {
-            currentFacingMode = currentFacingMode === "environment" ? "user" : "environment";
-            // 停止目前的攝影機
-            if (video.srcObject) {
-                video.srcObject.getTracks().forEach(track => track.stop());
-            }
-            // 重新啟動攝影機
-            startCamera();
-        });
+
 
         updateStep(); // 初始化第一個步驟
         startCamera(); // 啟動攝影機
