@@ -41,6 +41,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    margin-bottom: 100px;
 }
 
 .backend tbody tr td:nth-child(9),
@@ -203,6 +204,7 @@ tr:hover {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 120px;
 }
 
 .delete-button:hover {
@@ -230,17 +232,13 @@ thead tr th {
 
 .s-func {
     position: relative;
-
-    .del {
-        position: absolute;
-        right: 0;
-        top: -10px;
-    }
-
 }
 
 
 .pth {
     width: 140px;
-
 }
+
+ .del {
+       text-align: right;
+    }

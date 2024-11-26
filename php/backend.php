@@ -112,10 +112,11 @@ $result = $stmt->get_result();
                 </form>
             </div>
 
-            <div class="del"><button type="submit" class="delete-button">批次刪除</button></div>
+           
 
         </div>
         <form method="POST" action="delete.php" onsubmit="return confirmDelete();">
+         <div class="del"><button type="submit" class="delete-button">批次刪除</button></div>
             <table class="backend">
                 <thead>
                     <tr>
