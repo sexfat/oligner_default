@@ -58,10 +58,10 @@
                 </ul>
             </div>
             <div class="camera_bar">
-                <button class="capture" id="capture"><img src="images/camera.png" alt="" srcset="">拍照</button>
-                <button class="switch-camera" id="switch-camera">切換鏡頭</button>
-                <button class="submit-photos" id="submit-photos" style="display: none;">提交所有照片</button>
                 <button class="retake-all" id="retake-all" style="display: none;">全部重新</button>
+                <button class="switch-camera" id="switch-camera">切換鏡頭</button>
+                <button class="capture" id="capture"><img src="images/camera.png" alt="" srcset="">拍照</button>
+                <button class="submit-photos" id="submit-photos" style="display: none;">提交所有照片</button>
             </div>
         </div>
 
@@ -154,17 +154,20 @@
 
         // 重新拍攝全部
         retakeAllButton.addEventListener('click', () => {
-            photos = new Array(5).fill(null);
-            for (let i = 1; i <= 5; i++) {
-                document.getElementById(`photo${i}`).innerHTML = '';
+            if (confirm('您確定要重新拍攝全部照片嗎？這將刪除所有已拍攝的照片。')) {
+                photos = new Array(5).fill(null);
+                for (let i = 1; i <= 5; i++) {
+                    document.getElementById(`photo${i}`).innerHTML = '';
+                }
+                currentStep = 0;
+                updateStep();
+                captureButton.style.display = 'inline-block';
+                switchCameraButton.style.display = 'inline-block';
+                submitButton.style.display = 'none';
+                retakeAllButton.style.display = 'none';
             }
-            currentStep = 0;
-            updateStep();
-            captureButton.style.display = 'inline-block';
-            switchCameraButton.style.display = 'inline-block';
-            submitButton.style.display = 'none';
-            retakeAllButton.style.display = 'none';
         });
+
         // 切換鏡頭
         switchCameraButton.addEventListener('click', () => {
             currentFacingMode = currentFacingMode === "environment" ? "user" : "environment";

@@ -48,8 +48,9 @@
             </div>
 
             <div class="form-group">
-                <label for="rocYear">民國年</label>
+                <label for="rocYear">出生年（民國）</label>
                 <input type="number" id="rocYear" name="rocYear" max="200" placeholder="例如：81" required>
+                <small id="rocYear-warning" style="color: red; display: none;">民國年不得超過 200</small>
             </div>
 
             <div class="form-group">
@@ -125,7 +126,13 @@
 
         <a href="index.html" class="back-button">回上一頁</a>
         <footer>
-            <p>© 2024 三益海棠股份有限公司 OLigner 歐耐恩  <br>all rights reserved  版權所有</p>
+            <p>© 2024 OLigner 歐耐恩隱形矯正
+                <br>all rights reserved 版權所有
+            </p>
+            <h1 class="next71">製作公司: <a href="https://www.71next.com/" target="_blank"
+                    rel="noopener noreferrer">秦毅數位科技現有公司</a>
+            </h1>
+
         </footer>
     </div>
 
@@ -143,6 +150,8 @@
         const phoneInfo = document.getElementById('phone-info');
         const ageDisplay = document.getElementById('age-display');
         const calculatedAgeInput = document.getElementById('calculated-age');
+        const rocYearInput = document.getElementById('rocYear');
+        const rocYearWarning = document.getElementById('rocYear-warning');
 
         let selectedConditions = [];
 
@@ -151,6 +160,14 @@
             const currentMonth = new Date().getMonth() + 1;
             const rocYear = parseInt(document.getElementById("rocYear").value, 10);
             const birthMonth = parseInt(document.getElementById("month").value, 10);
+
+            if (rocYear > 200) {
+                rocYearWarning.style.display = 'block';
+                nextButton.disabled = true;
+                return;
+            } else {
+                rocYearWarning.style.display = 'none';
+            };
 
             if (!rocYear || !birthMonth || birthMonth < 1 || birthMonth > 12) {
                 ageDisplay.textContent = "請輸入有效的民國年和月份";
@@ -164,7 +181,7 @@
             ageDisplay.textContent = `年齡：約 ${age} 歲`;
         }
 
-        document.getElementById("rocYear").addEventListener("input", calculateAge);
+        rocYearInput.addEventListener("input", calculateAge);
         document.getElementById("month").addEventListener("change", calculateAge);
 
         phoneInput.addEventListener('input', function () {
@@ -179,7 +196,7 @@
             const allFilled = requiredFields.every(field => field.value.trim() !== '');
             const conditionFilled = selectedConditionInput.value.trim() !== '';
             const isPhoneValid = phoneInput.value.match(/^09[0-9]{8}$/) !== null;
-            nextButton.disabled = !(allFilled && conditionFilled && isPhoneValid);
+            nextButton.disabled = !(allFilled && conditionFilled && isPhoneValid && rocYearWarning.style.display === 'none');
         }
 
         const form = document.getElementById('task-form-3');
