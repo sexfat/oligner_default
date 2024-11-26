@@ -1,6 +1,25 @@
 /* Reset 一些預設樣式 */
 
 
+.container {
+   h1 {
+   width: 100%;
+    margin: 0px auto 20px;
+    position: relative;
+    left: -5px;
+    max-width: 430px;
+    img {
+      width: 28px;
+      height: 28px;
+      position: relative;
+      top:3px;
+    }
+   
+   }
+
+}
+
+
 
 .image-options {
     display: flex;

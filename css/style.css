@@ -171,7 +171,7 @@ select {
   -webkit-appearance: none; /* 隱藏 iOS 預設樣式 */
   -moz-appearance: none; /* 隱藏 Firefox 預設樣式 */
   appearance: none; /* 隱藏通用預設樣式 */
-  color: #b0b0b0; /* 設置文字顏色 */
+  color: #656565; /* 設置文字顏色 */
 }
 
 .banner {
@@ -207,6 +207,20 @@ footer p {
 }
 
 /* Reset 一些預設樣式 */
+.container h1 {
+  width: 100%;
+  margin: 0px auto 20px;
+  position: relative;
+  left: -5px;
+  max-width: 430px;
+}
+.container h1 img {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  top: 3px;
+}
+
 .image-options {
   display: flex;
   flex-direction: column;
