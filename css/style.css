@@ -207,12 +207,14 @@ footer p {
 }
 
 /* Reset 一些預設樣式 */
-.container h1 {
-  width: 100%;
-  margin: 0px auto 20px;
+.container .title {
   position: relative;
   left: -5px;
   max-width: 430px;
+}
+.container h1 {
+  width: 100%;
+  margin: 0px auto 20px;
 }
 .container h1 img {
   width: 28px;

@@ -2,12 +2,15 @@
 
 
 .container {
-   h1 {
-   width: 100%;
-    margin: 0px auto 20px;
+   .title {
     position: relative;
     left: -5px;
     max-width: 430px;
+   }
+   h1 {
+    width: 100%;
+    margin: 0px auto 20px;
+   
     img {
       width: 28px;
       height: 28px;
