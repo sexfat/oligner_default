@@ -1,5 +1,5 @@
 .banner {
-  @include layout(836px, 498px);
+  @include layout(836px, 450px);
   @include m() {
      @include layout(100%, null);
   }
