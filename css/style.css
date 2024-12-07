@@ -549,6 +549,24 @@ b {
   text-align: left;
 }
 
+.photo-container ul li {
+  position: relative;
+}
+.photo-container ul li .delete-button {
+  margin-top: 5px;
+  padding: 0;
+  background-color: rgba(255, 0, 0, 0.7215686275);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 40%;
+  top: 25%;
+}
+
 .container_camera {
   width: 100%;
   max-width: 500px;

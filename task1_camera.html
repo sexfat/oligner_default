@@ -22,6 +22,7 @@
             z-index: 1000;
             display: none;
         }
+       
     </style>
 </head>
 
@@ -36,7 +37,7 @@
             </div>
         </div>
         <div class="mask">
-            <img class="mask_image" src="images/mask01.png" alt="">
+            <img class="mask_image" id="mask-image-src" src="images/mask1.svg" alt="">
             <video id="video" autoplay playsinline></video>
             <canvas id="canvas" style="display: none;"></canvas>
         </div>
@@ -54,7 +55,7 @@
                 <input type="file" id="upload-image" accept="image/*" style="display: none;">
                 <button id="upload-button">上傳圖片</button>
                 <button class="switch-camera" id="switch-camera">切換鏡頭</button>
-                <button class="capture" id="capture"><img src="images/camera.png" alt="" srcset="">拍照</button>
+                <button class="capture" id="capture"><img src="images/camera.png" alt="">拍照</button>
                 <button class="submit-photos" id="submit-photos" style="display: none;">提交所有照片</button>
             </div>
         </div>
@@ -74,14 +75,13 @@
         const context = canvas.getContext('2d');
 
         const steps = [
-            { step: 'Step.1', title: '正面咬合照', instruction: '請拍攝或上傳您的正面咬合照片。', image: 'images/t1.jpg', mask: 'images/mask1.png' },
-            { step: 'Step.2', title: '上顎齒列照', instruction: '請拍攝或上傳您的上顎齒列照片。', image: 'images/t2.jpg', mask: 'images/mask2.png' },
-            { step: 'Step.3', title: '下顎齒列照', instruction: '請拍攝或上傳您的下顎齒列照片。', image: 'images/t3.jpg', mask: 'images/mask3.png' },
-            { step: 'Step.4', title: '側臉咬合照', instruction: '請拍攝或上傳您的側臉咬合照片。', image: 'images/t4.jpg', mask: 'images/mask4.png' },
-            { step: 'Step.5', title: '側臉美觀線', instruction: '請拍攝或上傳您的側臉美觀線。', image: 'images/t5.jpg', mask: 'images/mask5.png' },
+            { step: 'Step.1', title: '正面咬合照', instruction: '請拍攝或上傳您的正面咬合照片。', image: 'images/t1.jpg', mask: 'images/mask1.svg' },
+            { step: 'Step.2', title: '上顎齒列照', instruction: '請拍攝或上傳您的上顎齒列照片。', image: 'images/t2.jpg', mask: 'images/mask2.svg' },
+            { step: 'Step.3', title: '下顎齒列照', instruction: '請拍攝或上傳您的下顎齒列照片。', image: 'images/t3.jpg', mask: 'images/mask3.svg' },
+            { step: 'Step.4', title: '側臉咬合照', instruction: '請拍攝或上傳您的側臉咬合照片。', image: 'images/t4.jpg', mask: 'images/mask4.svg' },
+            { step: 'Step.5', title: '側臉美觀線', instruction: '請拍攝或上傳您的側臉美觀線。', image: 'images/t5.jpg', mask: 'images/mask5.svg' },
         ];
 
-        let currentStep = 0;
         let photos = new Array(5).fill(null);
         let currentFacingMode = "environment";
 
@@ -100,36 +100,17 @@
             }
         }
 
-        // 更新步驟描述
-        function updateStep() {
-            const stepTitle = document.getElementById('step-title');
-            const stepInstruction = document.getElementById('step-instruction');
-            const stepImageSrc = document.getElementById('step-image-src');
-            stepTitle.textContent = steps[currentStep].title;
-            stepInstruction.textContent = steps[currentStep].instruction;
-            stepImageSrc.src = steps[currentStep].image;
-        }
-
         // 拍攝照片
         captureButton.addEventListener('click', () => {
+            const stepIndex = getCurrentStepIndex();
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
             canvas.toBlob((blob) => {
-                photos[currentStep] = blob;
-
-                const img = document.createElement('img');
-                img.src = URL.createObjectURL(blob);
-                document.getElementById(`photo${currentStep + 1}`).appendChild(img);
-
-                // 自動切換到下一步
-                if (currentStep < 4) {
-                    currentStep++;
-                    updateStep();
-                } else {
-                    submitButton.style.display = 'inline-block';
-                }
+                photos[stepIndex] = blob;
+                updatePhoto(stepIndex, blob);
+                updateStepDescription();
             }, 'image/png');
         });
 
@@ -140,25 +121,59 @@
 
         uploadInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
+            const stepIndex = getCurrentStepIndex();
+
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    document.getElementById(`photo${currentStep + 1}`).appendChild(img);
-                    photos[currentStep] = file;
-
-                    // 自動切換到下一步
-                    if (currentStep < 4) {
-                        currentStep++;
-                        updateStep();
-                    } else {
-                        submitButton.style.display = 'inline-block';
-                    }
+                    photos[stepIndex] = file;
+                    updatePhoto(stepIndex, e.target.result);
+                    updateStepDescription();
                 };
                 reader.readAsDataURL(file);
             }
         });
+
+        function updatePhoto(stepIndex, src) {
+            const li = document.getElementById(`photo${stepIndex + 1}`);
+            li.innerHTML = '';
+
+            const img = document.createElement('img');
+            img.src = src instanceof Blob ? URL.createObjectURL(src) : src;
+            li.appendChild(img);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'x';
+            deleteButton.className = 'delete-button';
+            deleteButton.style.display = 'inline-block';
+            deleteButton.addEventListener('click', () => {
+                photos[stepIndex] = null;
+                li.innerHTML = '';
+                updateStepDescription();
+            });
+            li.appendChild(deleteButton);
+        }
+
+        function getCurrentStepIndex() {
+            return photos.findIndex(photo => photo === null);
+        }
+
+        function updateStepDescription() {
+            const nextStepIndex = getCurrentStepIndex();
+            if (nextStepIndex >= 0 && nextStepIndex < steps.length) {
+                document.getElementById('stepOrder').textContent = steps[nextStepIndex].step;
+                document.getElementById('step-title').textContent = steps[nextStepIndex].title;
+                document.getElementById('step-instruction').textContent = steps[nextStepIndex].instruction;
+                document.getElementById('step-image-src').src = steps[nextStepIndex].image;
+                document.getElementById('mask-image-src').src = steps[nextStepIndex].mask;
+            } else {
+                document.getElementById('stepOrder').textContent = '完成';
+                document.getElementById('step-title').textContent = '所有照片已完成';
+                document.getElementById('step-instruction').textContent = '';
+                document.getElementById('step-image-src').src = 'images/t6.png';
+                //document.getElementById('mask-image-src').src = '';
+            }
+        }
 
         // 切換鏡頭
         switchCameraButton.addEventListener('click', () => {
@@ -170,7 +185,6 @@
         });
 
         // 初始化
-        updateStep();
         startCamera();
     </script>
 </body>
