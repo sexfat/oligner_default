@@ -177,7 +177,7 @@ select {
 .banner {
   max-width: 836px;
   width: 100%;
-  height: 450px;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
 }
@@ -192,7 +192,7 @@ select {
 
 footer {
   width: 100%;
-  margin: 30px auto;
+  margin: 30px auto 0;
   border-top: 1px solid #dadada;
   padding-top: 20px;
 }
@@ -705,18 +705,21 @@ b {
   color: #fff;
 }
 
-.thank {
-  margin-top: -10px;
-}
 @media screen and (max-width: 768px) {
   .thank {
-    margin-top: -130px;
-    padding: 18px;
+    padding: 0 18px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    margin-top: initial;
+    top: 0;
   }
 }
 
 .thankYou {
-  width: 87%;
+  width: 100%;
   margin: auto;
   text-align: center;
 }
@@ -727,14 +730,9 @@ b {
   margin: auto;
   display: block;
 }
-.thankYou p.bold {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-top: 20px;
-  background-color: rgba(45, 203, 211, 0.6509803922);
-  color: white;
-  padding: 10px 0;
-  border-radius: 8px;
+.thankYou .n5 {
+  width: 308px;
+  margin: 20px auto 0;
 }
 
 .lines {

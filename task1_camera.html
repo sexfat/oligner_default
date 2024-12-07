@@ -26,20 +26,13 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="logo"><img src="images/logo.png" alt=""></div>
-            <div class="account"><img src="images/OLigner.png" alt=""></div>
-        </nav>
-    </header>
     <div class="container_camera">
-        <!-- <h1>請依序完成 5 個拍照步驟</h1> -->
         <div id="step-description" class="stepbar">
             <div id="step-image"><img id="step-image-src" src="images/t1.jpg" alt=""></div>
             <div class="step-content">
                 <div id="stepOrder">Step.1</div>
                 <div id="step-title">正面咬合照</div>
-                <p id="step-instruction">請拍攝您的正面咬合照片。</p>
+                <p id="step-instruction">請拍攝或上傳您的正面咬合照片。</p>
             </div>
         </div>
         <div class="mask">
@@ -58,7 +51,8 @@
                 </ul>
             </div>
             <div class="camera_bar">
-                <button class="retake-all" id="retake-all" style="display: none;">全部重新</button>
+                <input type="file" id="upload-image" accept="image/*" style="display: none;">
+                <button id="upload-button">上傳圖片</button>
                 <button class="switch-camera" id="switch-camera">切換鏡頭</button>
                 <button class="capture" id="capture"><img src="images/camera.png" alt="" srcset="">拍照</button>
                 <button class="submit-photos" id="submit-photos" style="display: none;">提交所有照片</button>
@@ -71,26 +65,20 @@
     <script>
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
+        const uploadInput = document.getElementById('upload-image');
+        const uploadButton = document.getElementById('upload-button');
         const captureButton = document.getElementById('capture');
-        const retakeAllButton = document.getElementById('retake-all');
         const submitButton = document.getElementById('submit-photos');
         const switchCameraButton = document.getElementById('switch-camera');
         const loadingOverlay = document.getElementById('loading-overlay');
-
-        const stepTitle = document.getElementById('step-title');
-        const stepInstruction = document.getElementById('step-instruction');
-        const stepImageSrc = document.getElementById('step-image-src');
-        const stepOrder = document.getElementById('stepOrder');
-        const maskImage = document.querySelector('.mask_image');
-
         const context = canvas.getContext('2d');
 
         const steps = [
-            { step: 'Step.1', title: '正面咬合照', instruction: '請拍攝您的正面咬合照片。', image: 'images/t1.jpg', mask: 'images/mask1.svg' },
-            { step: 'Step.2', title: '上顎齒列照', instruction: '請拍攝您的上顎齒列照片。', image: 'images/t2.jpg', mask: 'images/mask2.svg' },
-            { step: 'Step.3', title: '下顎齒列照', instruction: '請拍攝您的下顎齒列照片。', image: 'images/t3.jpg', mask: 'images/mask3.svg' },
-            { step: 'Step.4', title: '側臉咬合照', instruction: '請拍攝您的側臉咬合照片。', image: 'images/t4.jpg', mask: 'images/mask4.svg' },
-            { step: 'Step.5', title: '側臉美觀線', instruction: '請拍攝您的側臉美觀線。', image: 'images/t5.jpg', mask: 'images/mask5.svg' },
+            { step: 'Step.1', title: '正面咬合照', instruction: '請拍攝或上傳您的正面咬合照片。', image: 'images/t1.jpg', mask: 'images/mask1.png' },
+            { step: 'Step.2', title: '上顎齒列照', instruction: '請拍攝或上傳您的上顎齒列照片。', image: 'images/t2.jpg', mask: 'images/mask2.png' },
+            { step: 'Step.3', title: '下顎齒列照', instruction: '請拍攝或上傳您的下顎齒列照片。', image: 'images/t3.jpg', mask: 'images/mask3.png' },
+            { step: 'Step.4', title: '側臉咬合照', instruction: '請拍攝或上傳您的側臉咬合照片。', image: 'images/t4.jpg', mask: 'images/mask4.png' },
+            { step: 'Step.5', title: '側臉美觀線', instruction: '請拍攝或上傳您的側臉美觀線。', image: 'images/t5.jpg', mask: 'images/mask5.png' },
         ];
 
         let currentStep = 0;
@@ -106,9 +94,6 @@
                     }
                 });
                 video.srcObject = stream;
-                video.onloadedmetadata = () => {
-                    maskImage.style.height = `${video.videoHeight}px`;
-                };
             } catch (error) {
                 alert('無法啟用攝影機');
                 console.error(error);
@@ -117,12 +102,12 @@
 
         // 更新步驟描述
         function updateStep() {
-            stepOrder.textContent = steps[currentStep].step;
+            const stepTitle = document.getElementById('step-title');
+            const stepInstruction = document.getElementById('step-instruction');
+            const stepImageSrc = document.getElementById('step-image-src');
             stepTitle.textContent = steps[currentStep].title;
             stepInstruction.textContent = steps[currentStep].instruction;
             stepImageSrc.src = steps[currentStep].image;
-            maskImage.src = steps[currentStep].mask; // 更新遮罩圖片
-            maskImage.style.height = `${video.videoHeight}px`; // 動態設置遮罩高度
         }
 
         // 拍攝照片
@@ -143,85 +128,50 @@
                     currentStep++;
                     updateStep();
                 } else {
-                    // 最後一步顯示提交與全部重新拍攝
                     submitButton.style.display = 'inline-block';
-                    retakeAllButton.style.display = 'inline-block';
-                    captureButton.style.display = 'none';
-                    switchCameraButton.style.display = 'none';
                 }
             }, 'image/png');
         });
 
-        // 重新拍攝全部
-        retakeAllButton.addEventListener('click', () => {
-            if (confirm('您確定要重新拍攝全部照片嗎？這將刪除所有已拍攝的照片。')) {
-                photos = new Array(5).fill(null);
-                for (let i = 1; i <= 5; i++) {
-                    document.getElementById(`photo${i}`).innerHTML = '';
-                }
-                currentStep = 0;
-                updateStep();
-                captureButton.style.display = 'inline-block';
-                switchCameraButton.style.display = 'inline-block';
-                submitButton.style.display = 'none';
-                retakeAllButton.style.display = 'none';
+        // 上傳圖片
+        uploadButton.addEventListener('click', () => {
+            uploadInput.click();
+        });
+
+        uploadInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    document.getElementById(`photo${currentStep + 1}`).appendChild(img);
+                    photos[currentStep] = file;
+
+                    // 自動切換到下一步
+                    if (currentStep < 4) {
+                        currentStep++;
+                        updateStep();
+                    } else {
+                        submitButton.style.display = 'inline-block';
+                    }
+                };
+                reader.readAsDataURL(file);
             }
         });
 
         // 切換鏡頭
         switchCameraButton.addEventListener('click', () => {
             currentFacingMode = currentFacingMode === "environment" ? "user" : "environment";
-            // 停止目前的攝影機
             if (video.srcObject) {
                 video.srcObject.getTracks().forEach(track => track.stop());
             }
-            // 重新啟動攝影機
             startCamera();
         });
 
-        // 提交所有照片
-        submitButton.addEventListener('click', () => {
-            const formData = new FormData();
-            const taskData = JSON.parse(localStorage.getItem('taskData')) || {};
-
-            for (const key in taskData) {
-                formData.append(key, taskData[key]);
-            }
-
-            photos.forEach((photo, index) => {
-                if (photo) {
-                    formData.append(`photo${index + 1}`, photo, `photo${index + 1}.png`);
-                }
-            });
-
-            loadingOverlay.style.display = 'flex';
-
-            fetch('php/submit_task.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.text())
-                .then(result => {
-                    if (result.trim() === '資料提交成功') {
-                        alert('資料提交成功！');
-                        localStorage.removeItem('taskData');
-                        window.location.href = 'thank_you.html';
-                    } else {
-                        alert('提交失敗：' + result);
-                    }
-                })
-                .catch(error => {
-                    console.error('提交失敗：', error);
-                    alert('提交失敗，請稍後再試');
-                })
-                .finally(() => {
-                    loadingOverlay.style.display = 'none';
-                });
-        });
-
-        updateStep(); // 初始化第一個步驟
-        startCamera(); // 啟動攝影機
-
+        // 初始化
+        updateStep();
+        startCamera();
     </script>
 </body>
 

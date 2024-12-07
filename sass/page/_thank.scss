@@ -1,17 +1,20 @@
 .thank {
-    margin-top: -10px;
-
     @include m() {
-        margin-top: -130px;
-        padding: 18px;
+        padding:0 18px;
     }
 }
 
+.container {
+   @include m(){
+        margin-top: initial;
+        top: 0
+   }
+}
+
 .thankYou {
-    width: 87%;
+    width: 100%;
     margin: auto;
     text-align: center;
-
     .qrcode {
         width: 220px;
         height: 220px;
@@ -20,15 +23,11 @@
         display: block;
     }
 
-    p.bold {
-        font-size: 1rem;
-        font-weight: 600;
-        margin-top: 20px;
-        background-color: #2dcbd3a6;
-        color: white;
-        padding: 10px 0;
-        border-radius: 8px;
-    }
+   .n5 {
+     width: 308px;
+   margin: 20px auto 0;
+   
+   }
 }
 
 .lines {
