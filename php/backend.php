@@ -130,7 +130,6 @@ $result = $stmt->get_result();
                         <th>狀況</th>
                         <th>縣市</th>
                         <th>區域</th>
-                        <th>備註</th>
                         <th class="pth">照片</th>
                         <th>提交時間</th>
                     </tr>
@@ -153,7 +152,6 @@ $result = $stmt->get_result();
                                 <td><?= htmlspecialchars($row['condition'] ?? '') ?></td>
                                 <td><?= htmlspecialchars($row['city'] ?? '') ?></td>
                                 <td><?= htmlspecialchars($row['region'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($row['remark'] ?? '') ?></td>
                                 <td class="img_photo">
                                     <?php
                                     // 處理照片顯示，假設 'photos' 欄位存儲的是 JSON 格式的 Base64 圖片資料
@@ -173,7 +171,7 @@ $result = $stmt->get_result();
                         <?php endwhile; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="13">目前沒有資料</td>
+                            <td colspan="12">目前沒有資料</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

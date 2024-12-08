@@ -2,18 +2,16 @@
 include 'db_connection.php'; // 確保已經包含資料庫連接
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 獲取表單資料
-    $task_name = $_POST['task_name'];
-    $condition = $_POST['condition'];
-    $name = $_POST['name'];
-    $rocYear = $_POST['rocYear']; // 新增的欄位
-    $month = $_POST['month'];      // 新增的欄位
-    $age = $_POST['age'];
-    $phone = $_POST['phone'];
-    $city = $_POST['city'];
-    $region = $_POST['region'];
-    $email = $_POST['email'];
-    $remark = $_POST['remark'];
+    // 獲取表單資料，與前端邏輯對應
+    $task_name = $_POST['task_name'] ?? '';
+    $condition = $_POST['condition'] ?? '';
+    $name = $_POST['name'] ?? '';
+    $rocYear = $_POST['rocYear'] ?? '';
+    $age = $_POST['age'] ?? 0;
+    $phone = $_POST['phone'] ?? '';
+    $city = $_POST['city'] ?? '';
+    $region = $_POST['region'] ?? '';
+    $email = $_POST['email'] ?? '';
 
     // 確保上層的 upload 資料夾存在
     $uploadDir = '../upload/';
@@ -61,10 +59,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 將照片路徑轉換為 JSON 字串以便存入資料庫
     $photos_json = json_encode($photos);
 
-    // 插入資料到資料庫
-    $sql = "INSERT INTO user_info (task_name, `condition`, name, rocYear, month, age, phone, city, region, email, remark, photos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    // 插入資料到資料庫，確保參數與前端一致
+    $sql = "INSERT INTO user_info (task_name, `condition`, name, rocYear, age, phone, city, region, email, photos) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssssisssssss', $task_name, $condition, $name, $rocYear, $month, $age, $phone, $city, $region, $email, $remark, $photos_json);
+    if (!$stmt) {
+        echo "資料庫錯誤：" . $conn->error;
+        exit;
+    }
+
+    $stmt->bind_param('ssssisssss', $task_name, $condition, $name, $rocYear, $age, $phone, $city, $region, $email, $photos_json);
 
     if ($stmt->execute()) {
         echo "資料提交成功";

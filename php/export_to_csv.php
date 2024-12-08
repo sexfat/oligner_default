@@ -12,7 +12,7 @@ header("Content-Disposition: attachment; filename=\"$filename\"");
 $output = fopen('php://output', 'w');
 
 // 寫入 CSV 標題行（將 UTF-8 轉換為 Big5）
-$headers = ['ID', '任務名稱', '姓名', '出生年月年齡', '電話', '信箱', '狀況', '縣市', '區域別', '備註', '提交時間'];
+$headers = ['ID', '任務名稱', '姓名', '出生年月年齡', '電話', '信箱', '狀況', '縣市', '區域別', '提交時間'];
 fputcsv($output, array_map(function($field) {
     return mb_convert_encoding($field, 'BIG5', 'UTF-8');
 }, $headers));
@@ -26,7 +26,7 @@ if ($result && $result->num_rows > 0) {
     // 逐行寫入資料
     while ($row = $result->fetch_assoc()) {
         // 格式化 rocYear、month 和 age 為單一欄位
-        $birthInfo = "民國 " . ($row['rocYear'] ?? "") . " 年" . ($row['month'] ?? "") . " 月 " . ($row['age'] ?? ""). "歲";
+        $birthInfo = "民國 " . ($row['rocYear'] ?? "") . " 年"  . ($row['age'] ?? ""). "歲";
         $phone = '="' . $row['phone'] . '"';
         // 寫入轉換為 Big5 的資料
         fputcsv($output, array_map(function($field) {
@@ -41,7 +41,6 @@ if ($result && $result->num_rows > 0) {
             $row['condition'],
             $row['city'],
             $row['region'],
-            $row['remark'],
             $row['created_at']
         ]));
     }

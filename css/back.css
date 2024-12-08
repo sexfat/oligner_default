@@ -158,12 +158,13 @@ body * {
   border-radius: 20px;
   padding: 25px;
   position: relative;
-  top: -150px;
+  top: -20px;
   line-height: 28px;
 }
 @media screen and (max-width: 768px) {
   .container {
-    margin-top: -100px;
+    margin-top: -110px;
+    border-radius: 0px;
   }
 }
 
@@ -243,13 +244,6 @@ table {
   font-size: 14px;
   color: #474747;
   width: 200px;
-}
-
-.backend tbody tr td:nth-child(12) {
-  width: 200px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
 }
 
 .backend tbody tr td:nth-child(5) {

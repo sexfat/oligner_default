@@ -158,12 +158,13 @@ body * {
   border-radius: 20px;
   padding: 25px;
   position: relative;
-  top: -150px;
+  top: -20px;
   line-height: 28px;
 }
 @media screen and (max-width: 768px) {
   .container {
-    margin-top: -100px;
+    margin-top: -110px;
+    border-radius: 0px;
   }
 }
 
@@ -592,13 +593,14 @@ b {
 .container_camera .mask .mask_image {
   position: absolute;
   top: -60px;
+  z-index: 100;
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
 }
 @media screen and (max-width: 768px) {
   .container_camera .mask .mask_image {
-    top: -160px;
+    top: -30px;
   }
 }
 .container_camera .mask video {
@@ -659,6 +661,9 @@ b {
   object-fit: cover;
 }
 
+.bottom_bar {
+  background-color: #1b1b1b;
+}
 @media screen and (max-width: 768px) {
   .bottom_bar {
     position: fixed;
@@ -680,47 +685,49 @@ b {
   }
 }
 .bottom_bar .camera_bar {
+  padding: 5px 5px;
+}
+.bottom_bar .camera_bar .finish,
+.bottom_bar .camera_bar .after {
   display: flex;
   gap: 10px;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 5px;
 }
 .bottom_bar .camera_bar .capture {
-  width: 70%;
+  border-radius: 100px;
+  text-align: center;
 }
 .bottom_bar .camera_bar .capture img {
   top: 3px;
   position: relative;
-  right: 5px;
+}
+.bottom_bar .camera_bar .upload-button {
+  background-color: initial;
+}
+.bottom_bar .camera_bar .upload-button img {
+  width: 50px;
 }
 .bottom_bar .camera_bar .submit-photos {
-  width: 70%;
+  background-color: initial;
+}
+.bottom_bar .camera_bar .submit-photos img {
+  width: 50px;
+}
+.bottom_bar .camera_bar .renew-photos {
+  background-color: initial;
+}
+.bottom_bar .camera_bar .renew-photos img {
+  width: 50px;
 }
 .bottom_bar .camera_bar .next-step {
   width: 70%;
 }
 .bottom_bar .camera_bar .switch-camera {
-  width: 30%;
-  font-size: 12px;
   background-color: initial;
-  border: 1px solid #2DCCD3;
-  color: #2DCCD3;
 }
-.bottom_bar .camera_bar .switch-camera:hover {
-  background-color: #2DCCD3;
-  color: #fff;
-}
-.bottom_bar .camera_bar .retake-all {
-  width: 30%;
-  font-size: 12px;
-  background-color: initial;
-  border: 1px solid #2DCCD3;
-  color: #2DCCD3;
-}
-.bottom_bar .camera_bar .retake-all:hover {
-  background-color: #2DCCD3;
-  color: #fff;
+.bottom_bar .camera_bar .switch-camera img {
+  width: 40px;
 }
 
 @media screen and (max-width: 768px) {

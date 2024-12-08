@@ -24,7 +24,7 @@
 
 <body>
     <div class="banner">
-        <img src="banner/banner.jpg" alt="">
+        <img src="banner/image01.jpg" alt="">
         <!-- 尺寸 836px 498px-->
     </div>
     <div class="container">
@@ -128,6 +128,7 @@
         const rocYearInput = document.getElementById('rocYear');
         const rocYearWarning = document.getElementById('rocYear-warning');
         const emailInput = document.getElementById('email');
+        const emailWarning = document.getElementById('email-warning');
         const privacyCheckbox = document.getElementById('privacy-checkbox');
 
         let selectedConditions = [];
@@ -182,6 +183,7 @@
             phoneInput.setCustomValidity(isPhoneValid ? '' : '請填入有效的台灣手機號碼，09開頭共10位數');
             checkFormValidity();
         });
+        emailInput.addEventListener('input', checkFormValidity);
 
         privacyCheckbox.addEventListener('change', checkFormValidity);
 
@@ -189,10 +191,20 @@
             const allFilled = requiredFields.every(field => field.value.trim() !== '');
             const conditionFilled = selectedConditionInput.value.trim() !== '';
             const isPhoneValid = phoneInput.value.match(/^09[0-9]{8}$/) !== null;
-            const isEmailValid = emailInput.value.trim() === '' || emailInput.value.includes('@');
+            const isEmailValid = emailInput.value === '' || emailInput.value.includes('@'); // 信箱可空白，若填寫需包含 '@'
             const isPrivacyChecked = privacyCheckbox.checked;
+
             nextButton.disabled = !(allFilled && conditionFilled && isPhoneValid && isEmailValid && isPrivacyChecked && rocYearWarning.style.display === 'none');
+
+            // 顯示或隱藏信箱警告
+            if (emailInput.value !== '' && !isEmailValid) {
+                emailWarning.style.display = 'block';
+            } else {
+                emailWarning.style.display = 'none';
+            }
         }
+        
+        emailInput.addEventListener('input', checkFormValidity);
 
         const form = document.getElementById('task-form-1');
         const requiredFields = Array.from(form.querySelectorAll('input[required], select[required]'));

@@ -105,6 +105,13 @@
                     }
                 });
                 video.srcObject = stream;
+
+                // 應用鏡像效果
+                if (currentFacingMode === "user") {
+                    video.style.transform = "scaleX(-1)"; // 前置鏡頭翻轉
+                } else {
+                    video.style.transform = "scaleX(1)"; // 恢復後置鏡頭正常顯示
+                }
             } catch (error) {
                 alert('無法啟用攝影機');
                 console.error(error);

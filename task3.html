@@ -17,21 +17,16 @@
         }
 
         .container {
-            top: -200px;
+
             max-width: 550px;
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="logo"><img src="images/logo.png" alt=""></div>
-            <div class="account"><img src="images/OLigner.png" alt=""></div>
-        </nav>
-    </header>
+
     <div class="banner">
-        <img src="banner/banner.jpg" alt="">
+        <img src="banner/image01.jpg" alt="">
         <!-- 尺寸 836px 498px-->
     </div>
     <div class="container">
@@ -51,26 +46,6 @@
                 <label for="rocYear">出生年（民國）</label>
                 <input type="number" id="rocYear" name="rocYear" max="200" placeholder="例如：81" required>
                 <small id="rocYear-warning" style="color: red; display: none;">民國年不得超過 200</small>
-            </div>
-
-            <div class="form-group">
-                <label for="month">月份</label>
-                <select id="month" name="month" required>
-                    <option value="" disabled selected>請選擇月份</option>
-                    <option value="1">1 月</option>
-                    <option value="2">2 月</option>
-                    <option value="3">3 月</option>
-                    <option value="4">4 月</option>
-                    <option value="5">5 月</option>
-                    <option value="6">6 月</option>
-                    <option value="7">7 月</option>
-                    <option value="8">8 月</option>
-                    <option value="9">9 月</option>
-                    <option value="10">10 月</option>
-                    <option value="11">11 月</option>
-                    <option value="12">12 月</option>
-                </select>
-                <small id="age-display"></small>
             </div>
 
             <div class="form-group">
@@ -111,15 +86,14 @@
 
             <div class="form-group">
                 <label for="email">信箱：</label>
-                <input type="email" id="email" name="email" placeholder="例如：oligner@example.com" required>
+                <input type="email" id="email" name="email" placeholder="例如：oligner@example.com">
                 <small id="email-warning" style="color: red; display: none;">信箱必須包含 @ 符號</small>
             </div>
 
-            <div class="form-group">
-                <label for="remark">備註 (非必填)</label>
-                <textarea id="remark" name="remark" maxlength="150" rows="3" placeholder="最多150字"
-                    oninput="updateCharCount()"></textarea>
-                <small id="char-count">剩餘字數：150</small>
+            <!--隱私權  -->
+            <div class="privacy-container">
+                <input type="checkbox" id="privacy-checkbox">
+                <label for="privacy-checkbox">我已閱讀並同意<a href="#" id="privacy-button">隱私條款</a></label>
             </div>
 
             <button type="submit" id="next-button" disabled>提交表單</button>
@@ -135,6 +109,14 @@
             </h1>
 
         </footer>
+        <div id="privacy-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h1>歐耐恩隱私權政策</h1>
+                <p>非常歡迎您光臨「歐耐恩OLigner網站」（以下簡稱本網站），為了讓您能夠安心使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：</p>
+                <!-- 隱私權條款內容... -->
+            </div>
+        </div>
     </div>
 
     <script>
@@ -144,25 +126,42 @@
         const uncertainButton = document.getElementById('uncertain-button');
         const selectedConditionInput = document.getElementById('selected-condition');
         const otherInput = document.getElementById('other-input');
-        const remarkTextarea = document.getElementById('remark');
-        const charCount = document.getElementById('char-count');
         const nextButton = document.getElementById('next-button');
         const phoneInput = document.getElementById('phone');
         const phoneInfo = document.getElementById('phone-info');
-        const ageDisplay = document.getElementById('age-display');
         const calculatedAgeInput = document.getElementById('calculated-age');
         const rocYearInput = document.getElementById('rocYear');
         const rocYearWarning = document.getElementById('rocYear-warning');
         const emailInput = document.getElementById('email');
         const emailWarning = document.getElementById('email-warning');
-
+        const privacyCheckbox = document.getElementById('privacy-checkbox');
         let selectedConditions = [];
+
+
+        //彈窗事件
+        const modal = document.getElementById('privacy-modal');
+        const privacyButton = document.getElementById('privacy-button');
+        const closeButton = document.querySelector('.close-button');
+
+        // 開啟彈窗
+        privacyButton.addEventListener('click', () => {
+            modal.classList.add('show');
+        });
+
+        // 關閉彈窗
+        closeButton.addEventListener('click', closeModal);
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) closeModal();
+        });
+
+        function closeModal() {
+            modal.classList.remove('show');
+        }
+
 
         function calculateAge() {
             const currentYear = new Date().getFullYear();
-            const currentMonth = new Date().getMonth() + 1;
             const rocYear = parseInt(document.getElementById("rocYear").value, 10);
-            const birthMonth = parseInt(document.getElementById("month").value, 10);
 
             if (rocYear > 200) {
                 rocYearWarning.style.display = 'block';
@@ -170,22 +169,18 @@
                 return;
             } else {
                 rocYearWarning.style.display = 'none';
-            };
+            }
 
-            if (!rocYear || !birthMonth || birthMonth < 1 || birthMonth > 12) {
-                ageDisplay.textContent = "請輸入有效的民國年和月份";
+            if (!rocYear) {
                 return;
             }
 
             const birthYear = rocYear + 1911;
-            let age = currentYear - birthYear;
-            if (birthMonth > currentMonth) age -= 1;
+            const age = currentYear - birthYear;
             calculatedAgeInput.value = age;  // 儲存年齡於隱藏欄位
-            ageDisplay.textContent = `年齡：約 ${age} 歲`;
         }
 
-        rocYearInput.addEventListener("input", calculateAge);
-        document.getElementById("month").addEventListener("change", calculateAge);
+        document.getElementById("rocYear").addEventListener("input", calculateAge);
 
         phoneInput.addEventListener('input', function () {
             const remainingDigits = 10 - phoneInput.value.length;
@@ -194,23 +189,34 @@
             phoneInput.setCustomValidity(isPhoneValid ? '' : '請填入有效的台灣手機號碼，09開頭共10位數');
             checkFormValidity();
         });
-        emailInput.addEventListener('input', function () {
-            if (!emailInput.value.includes('@')) {
-                emailWarning.style.display = 'block';
-                nextButton.disabled = true;
-            } else {
-                emailWarning.style.display = 'none';
-            }
-            checkFormValidity();
-        });
+       
+
+
+
+
 
         function checkFormValidity() {
             const allFilled = requiredFields.every(field => field.value.trim() !== '');
             const conditionFilled = selectedConditionInput.value.trim() !== '';
             const isPhoneValid = phoneInput.value.match(/^09[0-9]{8}$/) !== null;
-            const isEmailValid = emailInput.value.includes('@');
-            nextButton.disabled = !(allFilled && conditionFilled && isPhoneValid && isEmailValid && rocYearWarning.style.display === 'none');
+            const isEmailValid = emailInput.value === '' || emailInput.value.includes('@'); // 信箱可空白，若填寫需包含 '@'
+            const isPrivacyChecked = privacyCheckbox.checked;
+            const isRocYearValid = rocYearWarning.style.display === 'none';
+
+            // 只有當所有條件都滿足時，提交按鈕才會啟用
+            nextButton.disabled = !(allFilled && conditionFilled && isPhoneValid && isEmailValid && isPrivacyChecked && isRocYearValid);
+
+            // 顯示或隱藏信箱警告
+            if (emailInput.value !== '' && !isEmailValid) {
+                emailWarning.style.display = 'block';
+            } else {
+                emailWarning.style.display = 'none';
+            }
         }
+
+        emailInput.addEventListener('input', checkFormValidity);
+        privacyCheckbox.addEventListener('change', checkFormValidity);
+
 
         const form = document.getElementById('task-form-3');
         const requiredFields = Array.from(form.querySelectorAll('input[required], select[required]'));
@@ -279,10 +285,7 @@
             })
             .catch(error => console.error('無法載入縣市資料:', error));
 
-        function updateCharCount() {
-            const remaining = 150 - remarkTextarea.value.length;
-            charCount.textContent = `剩餘字數：${remaining}`;
-        }
+
 
         requiredFields.forEach(field => {
             field.addEventListener('input', checkFormValidity);
@@ -290,6 +293,7 @@
         });
 
         checkFormValidity();
+
 
         form.addEventListener('submit', async (event) => {
             event.preventDefault(); // 阻止預設提交行為
