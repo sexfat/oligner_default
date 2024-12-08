@@ -22,7 +22,6 @@
             z-index: 1000;
             display: none;
         }
-       
     </style>
 </head>
 
@@ -52,11 +51,22 @@
                 </ul>
             </div>
             <div class="camera_bar">
-                <input type="file" id="upload-image" accept="image/*" style="display: none;">
-                <button id="upload-button">上傳圖片</button>
-                <button class="switch-camera" id="switch-camera">切換鏡頭</button>
-                <button class="capture" id="capture"><img src="images/camera.png" alt="">拍照</button>
-                <button class="submit-photos" id="submit-photos" style="display: none;">提交所有照片</button>
+                <div class="finish">
+                    <input type="file" id="upload-image" accept="image/*" style="display: none;">
+                    <button class="switch-camera" id="switch-camera"><img src="images/camera_switch.svg" alt="切換鏡頭"
+                            srcset=""></button>
+                    <button class="capture" id="capture"><img src="images/camera.png" alt="拍照"></button>
+                    <button id="upload-button" class="upload-button"><img src="images/upload.svg" alt="上傳照片"
+                            srcset=""></button>
+                </div>
+                <div class="after">
+                    <button class="renew-photos" id="renew-photos" style="display: none;"><img src="images/renew.svg"
+                            alt=""></button>
+                    <button class="submit-photos" id="submit-photos" style="display: none;"><img
+                            src="images/success.svg" alt=""></button>
+
+                </div>
+
             </div>
         </div>
 
@@ -70,6 +80,7 @@
         const uploadButton = document.getElementById('upload-button');
         const captureButton = document.getElementById('capture');
         const submitButton = document.getElementById('submit-photos');
+        const renewButton = document.getElementById('renew-photos');
         const switchCameraButton = document.getElementById('switch-camera');
         const loadingOverlay = document.getElementById('loading-overlay');
         const context = canvas.getContext('2d');
@@ -111,6 +122,10 @@
                 photos[stepIndex] = blob;
                 updatePhoto(stepIndex, blob);
                 updateStepDescription();
+                if (photos.every(photo => photo !== null)) {
+                    submitButton.style.display = 'inline-block';
+                    renewButton.style.display = 'inline-block';
+                }
             }, 'image/png');
         });
 
@@ -150,8 +165,20 @@
                 photos[stepIndex] = null;
                 li.innerHTML = '';
                 updateStepDescription();
+                if (photos.some(photo => photo === null)) {
+                    submitButton.style.display = 'none';
+                    renewButton.style.display = 'none';
+                    document.querySelector('.finish').style.display = 'flex';
+                    document.querySelector('.after').style.display = 'none';
+                }
             });
             li.appendChild(deleteButton);
+
+            // 檢查是否所有照片都完成
+            if (photos.every(photo => photo !== null)) {
+                document.querySelector('.finish').style.display = 'none';
+                document.querySelector('.after').style.display = 'flex';
+            }
         }
 
         function getCurrentStepIndex() {
@@ -160,20 +187,101 @@
 
         function updateStepDescription() {
             const nextStepIndex = getCurrentStepIndex();
+            const maskImage = document.getElementById('mask-image-src');
             if (nextStepIndex >= 0 && nextStepIndex < steps.length) {
                 document.getElementById('stepOrder').textContent = steps[nextStepIndex].step;
                 document.getElementById('step-title').textContent = steps[nextStepIndex].title;
                 document.getElementById('step-instruction').textContent = steps[nextStepIndex].instruction;
                 document.getElementById('step-image-src').src = steps[nextStepIndex].image;
                 document.getElementById('mask-image-src').src = steps[nextStepIndex].mask;
+                maskImage.style.display = 'block';
             } else {
                 document.getElementById('stepOrder').textContent = '完成';
                 document.getElementById('step-title').textContent = '所有照片已完成';
                 document.getElementById('step-instruction').textContent = '';
                 document.getElementById('step-image-src').src = 'images/t6.png';
+                maskImage.style.display = 'none'; // 隱藏 mask
                 //document.getElementById('mask-image-src').src = '';
             }
+            if (photos.every(photo => photo !== null)) {
+                document.querySelector('.finish').style.display = 'none';
+                document.querySelector('.after').style.display = 'flex';
+            } else {
+                document.querySelector('.finish').style.display = 'flex';
+                document.querySelector('.after').style.display = 'none';
+            }
         }
+
+
+        // 清除所有照片並重置狀態
+        const renewPhotosButton = document.getElementById('renew-photos');
+
+        renewPhotosButton.addEventListener('click', () => {
+            // 清空照片陣列
+            photos = new Array(5).fill(null);
+
+            // 清空照片的顯示
+            for (let i = 1; i <= photos.length; i++) {
+                const photoElement = document.getElementById(`photo${i}`);
+                if (photoElement) {
+                    photoElement.innerHTML = '';
+                }
+            }
+
+            // 重置步驟描述
+            updateStepDescription();
+
+            // 顯示 finish 區塊，隱藏 after 區塊
+            document.querySelector('.finish').style.display = 'flex';
+            document.querySelector('.after').style.display = 'none';
+
+            // 隱藏提交按鈕
+            submitButton.style.display = 'none';
+        });
+
+
+
+
+
+        // 提交所有照片
+        submitButton.addEventListener('click', () => {
+            const formData = new FormData();
+            const taskData = JSON.parse(localStorage.getItem('taskData')) || {};
+
+            for (const key in taskData) {
+                formData.append(key, taskData[key]);
+            }
+
+            photos.forEach((photo, index) => {
+                if (photo) {
+                    formData.append(`photo${index + 1}`, photo, `photo${index + 1}.png`);
+                }
+            });
+
+            loadingOverlay.style.display = 'flex';
+
+            fetch('php/submit_task.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(result => {
+                    if (result.trim() === '資料提交成功') {
+                        alert('資料提交成功！');
+                        localStorage.removeItem('taskData');
+                        window.location.href = 'thank_you.html';
+                    } else {
+                        alert('提交失敗：' + result);
+                    }
+                })
+                .catch(error => {
+                    console.error('提交失敗：', error);
+                    alert('提交失敗，請稍後再試');
+                })
+                .finally(() => {
+                    loadingOverlay.style.display = 'none';
+                });
+        });
 
         // 切換鏡頭
         switchCameraButton.addEventListener('click', () => {
