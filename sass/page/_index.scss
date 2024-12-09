@@ -2,10 +2,8 @@
 
 
 .container {
-   .title {
-    position: relative;
-    left: -5px;
-    max-width: 430px;
+   .titles {
+     margin-bottom: 10px;
    }
    h1 {
     width: 100%;
@@ -34,14 +32,11 @@
 .image-container {
     width: 100%;
     max-width: 440px;
-    height: 105px;
     border-radius: 12px;
     cursor: pointer;
     overflow: hidden;
-    border:  1px solid #49e8f0;
     flex: 1;
     transition: border-color 0.3s ease;
-    margin-bottom: 12px;
 }
 
 
