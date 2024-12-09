@@ -144,8 +144,7 @@ $result = $stmt->get_result();
                                 <td><?= htmlspecialchars($row['name'] ?? '') ?></td>
                                 <td class="age">
                                     <p><?= "民國 " . ($row['rocYear'] ?? "") . " 年" ?></p>
-                                    <p><?= ($row['month'] ?? "") . " 月" ?></p>
-                                    <p><?= "年齡：" . ($row['age'] ?? "") ?></p>
+                                    <p><?= "年齡 " . ($row['age'] ?? ""). " 歲"  ?></p>
                                 </td>
                                 <td><?= htmlspecialchars($row['phone'] ?? '') ?></td>
                                 <td><?= htmlspecialchars($row['email'] ?? '') ?></td>

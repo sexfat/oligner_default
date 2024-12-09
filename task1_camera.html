@@ -59,10 +59,10 @@
                     <button id="upload-button" class="upload-button"><img src="images/upload.svg" alt="上傳照片"
                             srcset=""></button>
                 </div>
-                <div class="after">
-                    <button class="renew-photos" id="renew-photos" style="display: none;"><img src="images/renew.svg"
+                <div class="after" style="display: none;">
+                    <button class="renew-photos" id="renew-photos" ><img src="images/renew.svg"
                             alt=""></button>
-                    <button class="submit-photos" id="submit-photos" style="display: none;"><img
+                    <button class="submit-photos" id="submit-photos" ><img
                             src="images/success.svg" alt=""></button>
 
                 </div>
@@ -154,6 +154,11 @@
                 };
                 reader.readAsDataURL(file);
             }
+            // 檢查是否所有照片都完成
+            if (photos.every(photo => photo !== null)) {
+                document.querySelector('.finish').style.display = 'none';
+                document.querySelector('.after').style.display = 'flex';
+            }
         });
 
         function updatePhoto(stepIndex, src) {
@@ -173,8 +178,8 @@
                 li.innerHTML = '';
                 updateStepDescription();
                 if (photos.some(photo => photo === null)) {
-                    submitButton.style.display = 'none';
-                    renewButton.style.display = 'none';
+                    //submitButton.style.display = 'none';
+                    //renewButton.style.display = 'none';
                     document.querySelector('.finish').style.display = 'flex';
                     document.querySelector('.after').style.display = 'none';
                 }

@@ -92,7 +92,7 @@ button:disabled {
 
 /* 任務回到上一頁 */
 .back-button {
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 10px 20px;
   background-color: #e7e7e7;
   color: #6c707a;
@@ -144,6 +144,7 @@ body {
   font-style: normal;
   font-size: 16px;
   color: #3F4254;
+  background-color: #fff;
 }
 body * {
   box-sizing: border-box;

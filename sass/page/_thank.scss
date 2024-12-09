@@ -1,13 +1,14 @@
 .thank {
     @include m() {
         padding:0 18px;
+        top:-75px;
     }
 }
 
 .container {
    @include m(){
         margin-top: initial;
-        top: 0
+        background-color: #ffffff00;
    }
 }
 
@@ -25,7 +26,7 @@
 
    .n5 {
      width: 308px;
-   margin: 20px auto 0;
+     margin: 15px auto 0;
    
    }
 }

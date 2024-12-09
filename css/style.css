@@ -92,7 +92,7 @@ button:disabled {
 
 /* 任務回到上一頁 */
 .back-button {
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 10px 20px;
   background-color: #e7e7e7;
   color: #6c707a;
@@ -144,6 +144,7 @@ body {
   font-style: normal;
   font-size: 16px;
   color: #3F4254;
+  background-color: #fff;
 }
 body * {
   box-sizing: border-box;
@@ -593,7 +594,7 @@ b {
 .container_camera .mask .mask_image {
   position: absolute;
   top: -60px;
-  z-index: 100;
+  z-index: 10;
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -663,6 +664,8 @@ b {
 
 .bottom_bar {
   background-color: #1b1b1b;
+  position: relative;
+  z-index: 100;
 }
 @media screen and (max-width: 768px) {
   .bottom_bar {
@@ -733,13 +736,14 @@ b {
 @media screen and (max-width: 768px) {
   .thank {
     padding: 0 18px;
+    top: -75px;
   }
 }
 
 @media screen and (max-width: 768px) {
   .container {
     margin-top: initial;
-    top: 0;
+    background-color: rgba(255, 255, 255, 0);
   }
 }
 
@@ -757,7 +761,7 @@ b {
 }
 .thankYou .n5 {
   width: 308px;
-  margin: 20px auto 0;
+  margin: 15px auto 0;
 }
 
 .lines {
