@@ -33,6 +33,9 @@
             margin-bottom: 40px;
             text-align: left;
         }
+        img {
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -41,12 +44,17 @@
 
         <h1>上傳圖片</h1>
         <!-- 上傳圖片到banner資料夾功能  -->
+        <img src="images/spec.png" alt="" srcset="">
         <div class="note">
-          <p>首頁banner (尺寸 836px 498px) 圖片名稱.格式：banner.jpg</p>
-          <p>首頁按鈕第一張圖片 (尺寸 880px 210px) 圖片名稱.格式:image01.png(背景透明)</p>
-          <p>首頁按鈕第二張圖片 (尺寸 880px 210px) 圖片名稱.格式:image02.png(背景透明)</p>
-          <p>請注意：檔名格式要完全一樣，換完圖片後，請用無痕模式重新整理網頁</p>
-        
+          單位：px
+          <ol>
+            <li>主圖 (尺寸 1672x995) 圖片名稱.image01.jpg</li>
+            <li>標題   (尺寸 880x166) 圖片名稱.格式:image02.png(背景透明)</li>
+            <li>按鈕   (尺寸 880x210) 圖片名稱.格式:image03.png(背景透明)</li>
+            <li>按鈕   (尺寸 880x210) 圖片名稱.格式:image04.png(背景透明)</li>
+            <li>按鈕   (尺寸 680x106) 圖片名稱.格式:image05.png(背景透明)</li>
+            <li>聯絡   (尺寸 616x152) 圖片名稱.格式:image06.png(背景透明)</li>
+          </ol>
         
         </div>
         <form action="./php/upload_image.php" method="POST" enctype="multipart/form-data">

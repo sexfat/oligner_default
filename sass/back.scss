@@ -32,7 +32,7 @@ body {
 
 /* 後台 */
 .back {
-    max-width: 1440px;
+    max-width: 1200px;
     width: 100%;
     margin: 30px auto 0;
 }
@@ -168,12 +168,11 @@ tr:hover {
 .search-form button[type="button"]:hover {
     background-color: darken(map-get($colors, primary), 10);
     color: #fff;
-
 }
 
 .export-button {
     width: 100%;
-    max-width: 1440px;
+    max-width: 1200px;
     margin: 0px auto 5px;
     display: block;
     padding: 10px;
