@@ -159,8 +159,17 @@ body * {
   border-radius: 20px;
   padding: 25px;
   position: relative;
-  top: -20px;
   line-height: 28px;
+  z-index: 1000;
+  top: -200px;
+}
+.container.index {
+  top: -1600px;
+}
+@media screen and (max-width: 768px) {
+  .container.index {
+    top: -270px;
+  }
 }
 @media screen and (max-width: 768px) {
   .container {
@@ -177,7 +186,7 @@ select {
 }
 
 .banner {
-  max-width: 836px;
+  max-width: 100%;
   width: 100%;
   height: auto;
   margin-left: auto;

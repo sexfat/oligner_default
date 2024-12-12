@@ -17,10 +17,18 @@ body {
     border-radius: 20px;
     padding: 25px;
     position: relative;
-    top: -20px;
     line-height: 28px;
+    z-index: 1000;
+    top:-200px;
+    &.index {
+       top : -1600px;
+       @include m(){
+         top: -270px;
+       }
+    
+    }
     @include m(){
-      margin-top: -110px;
+       margin-top: -110px;
        border-radius: 0px;
     }
     // box-shadow: 1px 1px 10px #d8d8d8;
