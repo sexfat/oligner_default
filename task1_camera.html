@@ -36,6 +36,7 @@
             </div>
         </div>
         <div class="mask">
+        <img src="" alt="大圖顯示" style="display: none;">
             <img class="mask_image" id="mask-image-src" src="images/mask1.svg" alt="">
             <video id="video" autoplay playsinline></video>
             <canvas id="canvas" style="display: none;"></canvas>
@@ -44,28 +45,16 @@
             <div id="photos" class="photo-container">
                 <ul>
                     <li id="photo1">
-                        <button class="view-button" style="display:none;">✓檢視</button>
                     </li>
                     <li id="photo2">
-                        <button class="view-button" style="display:none;">✓檢視</button>
                     </li>
                     <li id="photo3">
-                        <button class="view-button" style="display:none;">檢視</button>
                     </li>
                     <li id="photo4">
-                        <button class="view-button" style="display:none;">檢視</button>
                     </li>
                     <li id="photo5">
-                        <button class="view-button" style="display:none;">檢視</button>
                     </li>
                 </ul>
-            </div>
-            <!-- 圖片檢視 -->
-            <div class="image-viewer-overlay" id="image-viewer" style="display: none;">
-                <div class="image-viewer-content">
-                    <img id="viewer-image" src="" alt="檢視圖片">
-                    <div class="close-viewer" id="close-viewer"><img src="images/close.svg" alt="" srcset=""></div>
-                </div>
             </div>
             <!-- 鏡頭 -->
             <div class="camera_bar">
@@ -192,9 +181,6 @@
         });
 
         function updatePhoto(stepIndex, src) {
-
-
-
             const li = document.getElementById(`photo${stepIndex + 1}`);
             li.innerHTML = '';
 
@@ -218,31 +204,12 @@
             });
             li.appendChild(deleteButton);
 
-            // 新增檢視按鈕
-            const viewButton = document.createElement('button');
-            viewButton.textContent = '檢視';
-            viewButton.className = 'view-button';
-            viewButton.style.display = 'inline-block';
-            viewButton.addEventListener('click', () => {
-                const viewerImage = document.getElementById('viewer-image');
-                viewerImage.src = src instanceof Blob ? URL.createObjectURL(src) : src;
-                document.getElementById('image-viewer').style.display = 'flex';
-            });
-            li.appendChild(viewButton);
-
             // 檢查是否所有照片都完成
             if (photos.every(photo => photo !== null)) {
                 document.querySelector('.finish').style.display = 'none';
                 document.querySelector('.after').style.display = 'flex';
             }
         }
-
-        // 關閉檢視功能
-        const closeViewerButton = document.getElementById('close-viewer');
-        closeViewerButton.addEventListener('click', () => {
-            document.getElementById('image-viewer').style.display = 'none';
-
-        });
 
         // 下一個功能
         function getCurrentStepIndex() {
@@ -315,7 +282,6 @@
             for (const key in taskData) {
                 formData.append(key, taskData[key]);
             }
-
             photos.forEach((photo, index) => {
                 if (photo) {
                     formData.append(`photo${index + 1}`, photo, `photo${index + 1}.png`);
