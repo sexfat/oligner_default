@@ -95,12 +95,14 @@ $result = $stmt->get_result();
 </head>
 
 <body>
-    <form action="export_to_csv.php" method="post">
-        <button type="submit" class="export-button">匯出全部資料 (CSV)</button>
-    </form>
-    <form action="export_photos_zip.php" method="post">
-        <button type="submit" class="export-button">匯出全部照片 (ZIP)</button>
-    </form>
+    <div class="export">
+        <form action="export_to_csv.php" method="post">
+            <button type="submit" class="export-button">匯出全部資料 (CSV)</button>
+        </form>
+        <form action="export_photos_zip.php" method="post">
+            <button type="submit" class="export-button">匯出全部照片 (ZIP)</button>
+        </form>
+    </div>
     <div class="back">
         <h1>使用者資料</h1>
         <div class="s-func">
@@ -112,11 +114,11 @@ $result = $stmt->get_result();
                 </form>
             </div>
 
-           
+
 
         </div>
         <form method="POST" action="delete.php" onsubmit="return confirmDelete();">
-         <div class="del"><button type="submit" class="delete-button">批次刪除</button></div>
+            <div class="del"><button type="submit" class="delete-button">批次刪除</button></div>
             <table class="backend">
                 <thead>
                     <tr>
@@ -144,7 +146,7 @@ $result = $stmt->get_result();
                                 <td><?= htmlspecialchars($row['name'] ?? '') ?></td>
                                 <td class="age">
                                     <p><?= "民國 " . ($row['rocYear'] ?? "") . " 年" ?></p>
-                                    <p><?= "年齡 " . ($row['age'] ?? ""). " 歲"  ?></p>
+                                    <p><?= "年齡 " . ($row['age'] ?? "") . " 歲"  ?></p>
                                 </td>
                                 <td><?= htmlspecialchars($row['phone'] ?? '') ?></td>
                                 <td><?= htmlspecialchars($row['email'] ?? '') ?></td>

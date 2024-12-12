@@ -46,43 +46,7 @@
             </h1>
         </footer>
     </div>
-    <!-- 隱私權彈窗 -->
-
-    <script>
-
-
-
-        // 動態更新圖片
-        async function updateBannerFromFolder() {
-            try {
-                // 發送請求到 PHP
-                const response = await fetch('./php/get_banners.php');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch banner images');
-                }
-
-                // 解析返回的 JSON 資料
-                const images = await response.json();
-
-                // 檢查是否有圖片
-                if (images.length > 0) {
-                    const banner = document.getElementById('banner-image');
-                    banner.src = images[0]; // 使用第一張圖片作為 Banner
-                } else {
-                    console.error('No images found in the folder.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-        // 初始化時加載 Banner
-        updateBannerFromFolder();
-
-    </script>
-
     <script src="script.js"></script>
-    <script src="up_image.js"></script>
 </body>
 
 </html>

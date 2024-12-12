@@ -43,13 +43,31 @@
         <div class="bottom_bar">
             <div id="photos" class="photo-container">
                 <ul>
-                    <li id="photo1"></li>
-                    <li id="photo2"></li>
-                    <li id="photo3"></li>
-                    <li id="photo4"></li>
-                    <li id="photo5"></li>
+                    <li id="photo1">
+                        <button class="view-button" style="display:none;">✓檢視</button>
+                    </li>
+                    <li id="photo2">
+                        <button class="view-button" style="display:none;">✓檢視</button>
+                    </li>
+                    <li id="photo3">
+                        <button class="view-button" style="display:none;">檢視</button>
+                    </li>
+                    <li id="photo4">
+                        <button class="view-button" style="display:none;">檢視</button>
+                    </li>
+                    <li id="photo5">
+                        <button class="view-button" style="display:none;">檢視</button>
+                    </li>
                 </ul>
             </div>
+            <!-- 圖片檢視 -->
+            <div class="image-viewer-overlay" id="image-viewer" style="display: none;">
+                <div class="image-viewer-content">
+                    <img id="viewer-image" src="" alt="檢視圖片">
+                    <div class="close-viewer" id="close-viewer"><img src="images/close.svg" alt="" srcset=""></div>
+                </div>
+            </div>
+            <!-- 鏡頭 -->
             <div class="camera_bar">
                 <div class="finish">
                     <input type="file" id="upload-image" accept="image/*" style="display: none;">
@@ -60,10 +78,8 @@
                             srcset=""></button>
                 </div>
                 <div class="after" style="display: none;">
-                    <button class="renew-photos" id="renew-photos" ><img src="images/renew.svg"
-                            alt=""></button>
-                    <button class="submit-photos" id="submit-photos" ><img
-                            src="images/success.svg" alt=""></button>
+                    <button class="renew-photos" id="renew-photos"><img src="images/renew.svg" alt=""></button>
+                    <button class="submit-photos" id="submit-photos"><img src="images/success.svg" alt=""></button>
 
                 </div>
 
@@ -101,7 +117,8 @@
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: {
-                        facingMode: currentFacingMode
+                        facingMode: currentFacingMode,
+                        advanced: [{ zoom: 3 }]
                     }
                 });
                 video.srcObject = stream;
@@ -123,7 +140,20 @@
             const stepIndex = getCurrentStepIndex();
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            //context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            if (currentFacingMode === "user") {
+                context.save();
+                context.scale(-1, 1); // 水平翻轉
+                context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+                context.restore();
+            } else {
+                context.save();
+                context.scale(1, 1);
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                context.restore();
+            }
+
 
             canvas.toBlob((blob) => {
                 photos[stepIndex] = blob;
@@ -162,12 +192,16 @@
         });
 
         function updatePhoto(stepIndex, src) {
+
+
+
             const li = document.getElementById(`photo${stepIndex + 1}`);
             li.innerHTML = '';
 
             const img = document.createElement('img');
             img.src = src instanceof Blob ? URL.createObjectURL(src) : src;
             li.appendChild(img);
+
 
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'x';
@@ -178,13 +212,23 @@
                 li.innerHTML = '';
                 updateStepDescription();
                 if (photos.some(photo => photo === null)) {
-                    //submitButton.style.display = 'none';
-                    //renewButton.style.display = 'none';
                     document.querySelector('.finish').style.display = 'flex';
                     document.querySelector('.after').style.display = 'none';
                 }
             });
             li.appendChild(deleteButton);
+
+            // 新增檢視按鈕
+            const viewButton = document.createElement('button');
+            viewButton.textContent = '檢視';
+            viewButton.className = 'view-button';
+            viewButton.style.display = 'inline-block';
+            viewButton.addEventListener('click', () => {
+                const viewerImage = document.getElementById('viewer-image');
+                viewerImage.src = src instanceof Blob ? URL.createObjectURL(src) : src;
+                document.getElementById('image-viewer').style.display = 'flex';
+            });
+            li.appendChild(viewButton);
 
             // 檢查是否所有照片都完成
             if (photos.every(photo => photo !== null)) {
@@ -193,6 +237,14 @@
             }
         }
 
+        // 關閉檢視功能
+        const closeViewerButton = document.getElementById('close-viewer');
+        closeViewerButton.addEventListener('click', () => {
+            document.getElementById('image-viewer').style.display = 'none';
+
+        });
+
+        // 下一個功能
         function getCurrentStepIndex() {
             return photos.findIndex(photo => photo === null);
         }

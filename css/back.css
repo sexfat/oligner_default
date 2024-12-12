@@ -251,7 +251,8 @@ table {
   width: 90px;
 }
 
-.backend tbody tr td:nth-child(9), .backend tbody tr td:nth-child(10) {
+.backend tbody tr td:nth-child(9),
+.backend tbody tr td:nth-child(10) {
   width: 60px;
 }
 
@@ -267,6 +268,7 @@ td {
   padding: 8px;
   text-align: center;
   min-height: 70px;
+  transition: all 0.3s ease;
 }
 
 .img_photo {
@@ -288,13 +290,18 @@ th {
   color: white;
 }
 
+tr {
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
 /* 滑鼠移過去的 Hover 效果 */
 tr:hover {
-  background-color: #d6fbb2;
+  background-color: #c1fcef;
   cursor: pointer;
 }
 
@@ -360,20 +367,6 @@ tr:hover {
   color: #fff;
 }
 
-.export-button {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0px auto 5px;
-  display: block;
-  padding: 10px;
-  border: 1px solid #2DCCD3;
-  color: #2DCCD3;
-  background-color: initial;
-}
-.export-button:hover {
-  color: #f2f2f2;
-}
-
 /* 新增批次刪除按鈕的樣式 */
 .delete-button {
   margin-top: 10px;
@@ -419,4 +412,28 @@ thead tr th {
 
 .del {
   text-align: right;
+}
+
+.export {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  margin: auto;
+}
+.export form {
+  width: 100%;
+  margin: 10px;
+}
+.export .export-button {
+  width: 100%;
+  margin: 0px auto 5px;
+  display: block;
+  padding: 10px;
+  border: 1px solid #2DCCD3;
+  color: #2DCCD3;
+  background-color: initial;
+}
+.export .export-button:hover {
+  background-color: #2DCCD3;
+  color: #fff;
 }/*# sourceMappingURL=back.css.map */
