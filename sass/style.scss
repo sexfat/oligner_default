@@ -16,7 +16,6 @@
 @import 'module/btn';
 
 // layout
-@import 'layout/header';
 @import 'layout/body';  
 @import 'layout/banner';  
 @import 'layout/footer';  
@@ -31,12 +30,6 @@
 @import  'page/thank';
 
 
-
-.login {
- width: 100%;
- max-width: 600px;
- margin:150px auto 0;    
-}
 
 //input禁止放大
 input, textarea {

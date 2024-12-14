@@ -1,6 +1,0 @@
-.banner {
-  @include layout(100%, auto);
-  @include m() {
-     @include layout(100%, null);
-  }
-}

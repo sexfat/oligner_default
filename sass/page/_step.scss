@@ -23,6 +23,11 @@
     .mask {
         position: relative;
 
+        .large_image {
+            position: absolute;
+            z-index: 99;
+        }
+
         .mask_image {
             position: absolute;
             top: -60px;
@@ -31,6 +36,7 @@
             width: 100%;
             height: auto;
             object-fit: contain;
+
             @include m() {
                 top: -30px;
             }
@@ -76,15 +82,6 @@
     display: block;
 }
 
-
-
-#next-step,
-#retake-all {
-    display: none;
-}
-
-
-
 .photo-container {
     ul {
         display: flex;
@@ -116,21 +113,11 @@
 
 
 
-
-// .retake-container {
-//     display: flex;
-//     justify-content: space-between;
-//     gap: 20px;
-
-// }
-
-
-
-
 .bottom_bar {
- background-color: #1b1b1b;
- position: relative;
- z-index: 100;
+    background-color: #1b1b1b;
+    position: relative;
+    z-index: 100;
+
     @include m() {
         position: fixed;
         bottom: 0;
@@ -144,17 +131,20 @@
         width: 100%;
         height: 90px;
         overflow: hidden;
-        margin-bottom: 10px;
+       
 
-        @include m() {
-            margin-bottom: 5px;
-        }
+        // @include m() {
+        //     margin-bottom: 5px;
+        // }
+
     }
 
     .camera_bar {
         padding: 5px 5px;
+        height: 80px;
+        width: 100%;
 
-        .finish,
+        .taskPhoto,
         .after {
             display: flex;
             gap: 10px;
@@ -164,12 +154,15 @@
 
         .capture {
             border-radius: 100px;
-            // padding: 20px;
             text-align: center;
+            padding: 10px;
+            position: relative;
+            top:-2px;
 
             img {
                 top: 3px;
                 position: relative;
+                width: 33px;
             }
         }
 
@@ -177,25 +170,41 @@
             background-color: initial;
 
             img {
-                width: 50px;
+                width: 33px;
             }
         }
 
         .submit-photos {
-         background-color: initial;
+            //    background-color: initial;
+            width: 100%;
+            max-width: 130px;
+            margin: auto;
+            border-radius: 60px;
+            padding: 10px;
+            position: relative;
+            top:8px;
+
             img {
-                width: 50px;
-            }
-        }
-        .renew-photos {
-             background-color: initial;
-            img {
-                width: 50px;
+                width: 33px;
+                position: relative;
+                top: 5px;
             }
         }
 
-        .next-step {
-            width: 70%;
+        .success-photos {
+            background-color: initial;
+
+            img {
+                width: 33px;
+            }
+        }
+
+        .renew-photos {
+            background-color: initial;
+
+            img {
+                width: 35px;
+            }
         }
 
         .switch-camera {
@@ -205,22 +214,5 @@
                 width: 40px;
             }
         }
-
-        // .retake-all {
-        //     width: 30%;
-        //     font-size: 12px;
-        //     background-color: initial;
-        //     border: 1px solid map-get($colors, primary);
-        //     color: map-get($colors, primary);
-
-        //     &:hover {
-        //         background-color: map-get($colors, primary);
-        //         color: #fff;
-        //     }
-        // }
     }
-
-
-
-
 }

@@ -145,6 +145,13 @@ body {
   font-size: 16px;
   color: #3F4254;
   background-color: #fff;
+  background-image: url("../banner/image01.jpg");
+  background-size: calc(100% + 300px);
+  background-position: top;
+  background-repeat: no-repeat;
+}
+body.takePhoto {
+  background-image: initial;
 }
 body * {
   box-sizing: border-box;
@@ -158,47 +165,29 @@ body * {
   background-color: #fff;
   border-radius: 20px;
   padding: 25px;
-  position: relative;
   line-height: 28px;
   z-index: 1000;
-  top: -200px;
-}
-.container.index {
-  top: -1600px;
-}
-@media screen and (max-width: 768px) {
-  .container.index {
-    top: -270px;
-  }
+  width: 100%;
+  position: relative;
+  box-shadow: 1px 1px 6px #d8d8d8;
+  margin: auto;
 }
 @media screen and (max-width: 768px) {
   .container {
-    margin-top: -110px;
-    border-radius: 0px;
+    width: 96%;
+    margin: auto;
   }
 }
 
 select {
-  -webkit-appearance: none; /* 隱藏 iOS 預設樣式 */
-  -moz-appearance: none; /* 隱藏 Firefox 預設樣式 */
-  appearance: none; /* 隱藏通用預設樣式 */
-  color: #656565; /* 設置文字顏色 */
-}
-
-.banner {
-  max-width: 100%;
-  width: 100%;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-}
-@media screen and (max-width: 768px) {
-  .banner {
-    max-width: 100%;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  -webkit-appearance: none;
+  /* 隱藏 iOS 預設樣式 */
+  -moz-appearance: none;
+  /* 隱藏 Firefox 預設樣式 */
+  appearance: none;
+  /* 隱藏通用預設樣式 */
+  color: #656565;
+  /* 設置文字顏色 */
 }
 
 footer {

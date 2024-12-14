@@ -1,41 +1,48 @@
 body {
-  font-family:"Noto Sans TC" , "Inter", sans-serif;
+  font-family: "Noto Sans TC", "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   font-size: $fontSize;
   color: $fontColor;
   background-color: #fff;
-
+  background-image: url("../banner/image01.jpg");
+  //控制圖片位置跟大小
+  background-size: calc(100% + 300px);
+  background-position: top;
+  background-repeat: no-repeat;
+  &.takePhoto {
+    background-image: initial;
+  }
   * {
     box-sizing: border-box;
   }
 }
 
 .container {
-    @include layout(500px, null);
-    background-color: #fff;
-    border-radius: 20px;
-    padding: 25px;
-    position: relative;
-    line-height: 28px;
-    z-index: 1000;
-    top:-200px;
-    &.index {
-       top : -1600px;
-       @include m(){
-         top: -270px;
-       }
-    
-    }
-    @include m(){
-       margin-top: -110px;
-       border-radius: 0px;
-    }
-    // box-shadow: 1px 1px 10px #d8d8d8;
+  @include layout(500px, null);
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 25px;
+  line-height: 28px;
+  z-index: 1000;
+  width: 100%;
+  position: relative;
+  box-shadow: 1px 1px 6px #d8d8d8;
+  margin:auto;
+  @include m() {
+    width: 96%;
+    margin: auto;
+  }
+  // box-shadow: 1px 1px 10px #d8d8d8;
 }
+
 select {
-    -webkit-appearance: none; /* 隱藏 iOS 預設樣式 */
-    -moz-appearance: none;    /* 隱藏 Firefox 預設樣式 */
-    appearance: none;         /* 隱藏通用預設樣式 */
-    color: #656565;           /* 設置文字顏色 */
+  -webkit-appearance: none;
+  /* 隱藏 iOS 預設樣式 */
+  -moz-appearance: none;
+  /* 隱藏 Firefox 預設樣式 */
+  appearance: none;
+  /* 隱藏通用預設樣式 */
+  color: #656565;
+  /* 設置文字顏色 */
 }
