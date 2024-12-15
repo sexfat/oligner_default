@@ -94,7 +94,7 @@ $result = $stmt->get_result();
     </style>
 </head>
 
-<body>
+<body class="takePhoto">
     <div class="export">
         <form action="export_to_csv.php" method="post">
             <button type="submit" class="export-button">匯出全部資料 (CSV)</button>

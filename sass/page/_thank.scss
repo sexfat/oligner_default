@@ -1,13 +1,14 @@
 .thank {
+ 
     @include m() {
         padding:0 18px;
-        top:-75px;
     }
 }
 
 .thankYou {
     width: 100%;
-    margin: auto;
+    padding-top: 10px;
+    margin:10px auto 0;
     text-align: center;
     .qrcode {
         width: 220px;

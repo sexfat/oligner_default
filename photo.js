@@ -17,8 +17,8 @@ const steps = [
     { step: 'Step.1', title: '正面咬合照', instruction: '請拍攝或上傳您的正面咬合照片。', image: 'images/t1.jpg', mask: 'images/mask1.svg' },
     { step: 'Step.2', title: '上顎齒列照', instruction: '請拍攝或上傳您的上顎齒列照片。', image: 'images/t2.jpg', mask: 'images/mask2.svg' },
     { step: 'Step.3', title: '下顎齒列照', instruction: '請拍攝或上傳您的下顎齒列照片。', image: 'images/t3.jpg', mask: 'images/mask3.svg' },
-    { step: 'Step.4', title: '側臉咬合照', instruction: '請拍攝或上傳您的側臉咬合照片。', image: 'images/t4.jpg', mask: 'images/mask4.svg' },
-    { step: 'Step.5', title: '側臉美觀線', instruction: '請拍攝或上傳您的側臉美觀線。', image: 'images/t5.jpg', mask: 'images/mask5.svg' },
+    { step: 'Step.4', title: '側臉咬合照', instruction: '請拍攝或上傳您的側臉咬合照片。', image: 'images/t4.jpg', mask: 'images/mask4.png' },
+    { step: 'Step.5', title: '側臉美觀線', instruction: '請拍攝或上傳您的側臉美觀線。', image: 'images/t5.jpg', mask: 'images/mask5.png' },
 ];
 
 let photos = new Array(5).fill(null);
@@ -32,9 +32,9 @@ async function startCamera() {
         const stream = await navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: currentFacingMode,
-                width: { ideal: 1920 }, // 調整為理想的寬度（例如 1920px）
-                height: { ideal: 1080 }, // 調整為理想的高度（例如 1080px）
-                advanced: [{ zoom: 2.5 }]
+                // width: { ideal: 1920 }, // 調整為理想的寬度（例如 1920px）
+                // height: { ideal: 1200 }, // 調整為理想的高度（例如 1080px）
+                advanced: [{ zoom: 2.8 }]
             }
         });
         video.srcObject = stream;

@@ -19,6 +19,7 @@
 @import 'layout/body';  
 @import 'layout/banner';  
 @import 'layout/footer';  
+@import 'layout/header';
 
 // @import 'layout/login';
 
@@ -43,5 +44,12 @@ input, textarea {
  overflow: hidden;
 }
 
+
+.login {
+  position: relative;
+  top:100px;
+  width: 500px;
+  margin: auto;
+}
 
  
