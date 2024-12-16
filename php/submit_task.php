@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $newFileName = $uploadDir . uniqid("photo{$i}_") . '.jpg';
-            imagejpeg($img, $newFileName, 80); // 儲存為 JPG 格式並壓縮品質設為 80%
+            imagejpeg($img, $newFileName, 95); // 儲存為 JPG 格式並壓縮品質設為 95%
             imagedestroy($img); // 釋放圖像資源
 
             // 確認圖片已成功儲存

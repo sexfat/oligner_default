@@ -1,6 +1,3 @@
- 
- 
- 
  #phone:invalid {
      border: 2px solid rgb(194, 0, 0);
  }
@@ -112,12 +109,11 @@
 
  #uncertain-button {
      margin-top: 10px;
-
      color: white;
      border-radius: 5px;
      cursor: pointer;
      transition: background-color 0.3s ease;
-
+     width: 100%;
  }
 
  .uncertain-button {
@@ -180,6 +176,20 @@
      ul {
          li {
              position: relative;
+
+             &.selected {
+                 img {
+                     border: 4px solid #28b7bf;
+                     border-radius: 5px;
+
+                 }
+
+             }
+             img {
+                 border: 4px solid #28b7bf94;
+                 border-radius: 5px;
+
+             }
          }
      }
  }

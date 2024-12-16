@@ -32,9 +32,9 @@ async function startCamera() {
         const stream = await navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: currentFacingMode,
-                // width: { ideal: 1920 }, // 調整為理想的寬度（例如 1920px）
-                // height: { ideal: 1200 }, // 調整為理想的高度（例如 1080px）
-                advanced: [{ zoom: 2.8 }]
+                //width: { ideal: 3840 }, // 調整為理想的寬度（例如 1920px）
+                //height: { ideal: 2160 }, // 調整為理想的高度（例如 1080px）
+                advanced: [{ zoom: 2 }]
             }
         });
         video.srcObject = stream;
@@ -56,7 +56,7 @@ captureButton.addEventListener('click', () => {
     const stepIndex = getCurrentStepIndex();
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    //context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     if (currentFacingMode === "user") {
         context.save();
@@ -103,7 +103,9 @@ uploadInput.addEventListener('change', (event) => {
     // 檢查是否所有照片都完成
     if (photos.every(photo => photo !== null)) {
         document.querySelector('.taskPhoto').style.display = 'none';
-        document.querySelector('.after').style.display = 'flex';
+        document.querySelector('.after').style.display = 'none';
+        document.querySelector('.finish').style.display = 'flex';
+        submitButton.style.display = 'block'; // 顯示提交按鈕
     }
 });
 
@@ -112,11 +114,20 @@ uploadInput.addEventListener('change', (event) => {
 
 // 設置小圖點擊事件
 function setThumbnailClickHandlers() {
+    const photoList = document.querySelectorAll('#photos ul li');
     for (let i = 0; i < photos.length; i++) {
         const thumbnail = document.getElementById(`photo${i + 1}`);
         if (thumbnail) {
             thumbnail.addEventListener('click', () => {
                 if (photos[i]) {
+
+                    // 移除所有<li>的 'selected' class
+                    photoList.forEach((item) => {
+                        item.classList.remove('selected');
+                    });
+
+                    // 為當前點擊的<li>新增 'selected' class
+                    thumbnail.classList.add('selected');
                     currentPhotoIndex = i; // 記錄當前點擊的小圖索引
 
                     // 顯示大圖區域
@@ -148,14 +159,25 @@ function updatePhoto(stepIndex, src) {
     img.src = src instanceof Blob ? URL.createObjectURL(src) : src;
     li.appendChild(img);
 
+    const deleteButton = document.createElement('div');
+    deleteButton.textContent = 'x';
+    deleteButton.className = 'delete-button';
+    deleteButton.style.display = 'inline-block';
+    li.appendChild(deleteButton);
+
+
+
     // 檢查是否所有照片都完成
     if (photos.every(photo => photo !== null)) {
         // 隱藏.taskPhoto 和 .after
         document.querySelector('.taskPhoto').style.display = 'none';
         document.querySelector('.after').style.display = 'none';
-
         // 顯示.finish
         document.querySelector('.finish').style.display = 'flex'; // 顯示.finish
+        submitButton.style.display = 'block'; // 顯示提交按鈕
+    } else {
+        // 尚未完成，隱藏提交按鈕
+        submitButton.style.display = 'none';
     }
 
     // 為每個小圖重新設置點擊事件
@@ -179,6 +201,12 @@ okPhotosButton.addEventListener('click', () => {
 
         // 清除當前索引記錄
         currentPhotoIndex = null;
+
+        // 清除所有<li>的 'selected' class
+        const photoList = document.querySelectorAll('#photos ul li');
+        photoList.forEach((item) => {
+            item.classList.remove('selected');
+        });
 
         // 切換狀態：隱藏.after，顯示.finish
 
@@ -220,6 +248,9 @@ function updateStepDescription() {
         document.getElementById('step-image-src').src = steps[nextStepIndex].image;
         document.getElementById('mask-image-src').src = steps[nextStepIndex].mask;
         maskImage.style.display = 'block';
+
+        // 如果還有步驟，隱藏提交按鈕
+        submitButton.style.display = 'none';
     } else {
         document.getElementById('stepOrder').textContent = '完成';
         document.getElementById('step-title').textContent = '所有照片已完成';
@@ -231,6 +262,9 @@ function updateStepDescription() {
         document.querySelector('.taskPhoto').style.display = 'none'; // 隱藏.taskPhoto
         document.querySelector('.after').style.display = 'none'; // 隱藏.after
         document.querySelector('.finish').style.display = 'flex'; // 顯示.finish
+        if (photos.every(photo => photo !== null)) {
+            submitButton.style.display = 'block'; // 顯示提交按鈕
+        }
     }
 }
 
@@ -272,7 +306,7 @@ renewPhotosButton.addEventListener('click', () => {
     currentPhotoIndex = null;
 
     // 隱藏提交按鈕（需要重新確認所有照片）
-    document.getElementById('submit-photos').style.display = 'none';
+    // document.getElementById('submit-photos').style.display = 'none';
 
     // alert('當前照片已重置，請重新拍攝或上傳！');
 });

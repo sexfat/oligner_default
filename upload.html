@@ -16,23 +16,25 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 40px;
-
         }
 
         body {
             text-align: center;
         }
+
         .wrapper {
             max-width: 600px;
             margin: auto;
             line-height: 24px;
         }
+
         .note {
             font-size: 16px;
             color: #535968;
             margin-bottom: 40px;
             text-align: left;
         }
+
         img {
             width: 100%;
         }
@@ -41,21 +43,18 @@
 
 <body>
     <div class="wrapper">
-
         <h1>上傳圖片</h1>
-        <!-- 上傳圖片到banner資料夾功能  -->
         <img src="images/spec.png" alt="" srcset="">
         <div class="note">
-          單位：px
-          <ol>
-            <li>主圖 (尺寸 1672x995) 圖片名稱.image01.jpg</li>
-            <li>標題   (尺寸 880x166) 圖片名稱.格式:image02.png(背景透明)</li>
-            <li>按鈕   (尺寸 880x210) 圖片名稱.格式:image03.png(背景透明)</li>
-            <li>按鈕   (尺寸 880x210) 圖片名稱.格式:image04.png(背景透明)</li>
-            <li>按鈕   (尺寸 680x106) 圖片名稱.格式:image05.png(背景透明)</li>
-            <li>聯絡   (尺寸 616x152) 圖片名稱.格式:image06.png(背景透明)</li>
-          </ol>
-        
+            單位：px
+            <ol id="image-dimensions-list">
+                <li>主圖 (尺寸 <span id="image01-dimensions">1672x995</span>) 圖片名稱:image01.jpg</li>
+                <li>標題 (尺寸 <span id="image02-dimensions">880x166</span>) 圖片名稱:image02.png</li>
+                <li>按鈕 (尺寸 <span id="image03-dimensions">880x210</span>) 圖片名稱:image03.png</li>
+                <li>按鈕 (尺寸 <span id="image04-dimensions">880x210</span>) 圖片名稱:image04.png</li>
+                <li>按鈕 (尺寸 <span id="image05-dimensions">680x106</span>) 圖片名稱:image05.png</li>
+                <li>聯絡 (尺寸 <span id="image06-dimensions">616x152</span>) 圖片名稱:image06.png</li>
+            </ol>
         </div>
         <form action="./php/upload_image.php" method="POST" enctype="multipart/form-data">
             <input type="file" name="image" id="image" accept="image/*" required>
@@ -63,6 +62,44 @@
         </form>
     </div>
 
+    <script>
+        // 定義圖片名稱清單
+        const imageNames = [
+            "image01.jpg",
+            "image02.png",
+            "image03.png",
+            "image04.png",
+            "image05.png",
+            "image06.png"
+        ];
+
+        // 定義目標資料夾路徑
+        const folderPath = "banner/";
+
+        // 動態加載圖片尺寸
+        imageNames.forEach((imageName, index) => {
+            const img = new Image(); // 建立 Image 對象
+            img.src = `${folderPath}${imageName}`; // 設定圖片路徑
+
+            // 當圖片加載完成時取得尺寸
+            img.onload = function () {
+                const width = img.width;
+                const height = img.height;
+                const dimensionText = `${width}x${height}`;
+
+                // 更新對應的 <li> 中的尺寸
+                const dimensionElement = document.getElementById(`image0${index + 1}-dimensions`);
+                if (dimensionElement) {
+                    dimensionElement.textContent = dimensionText;
+                }
+            };
+
+            // 處理圖片加載失敗的情況
+            img.onerror = function () {
+                console.error(`圖片加載失敗：${img.src}`);
+            };
+        });
+    </script>
 </body>
 
 </html>

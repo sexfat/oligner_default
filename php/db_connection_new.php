@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$dbname = 'somdjnlg_npdata';
-$user = 'somdjnlg_npdata';
-$password = 'Z&*FVD-.VyKU';
+$dbname = 'nextcom_oligner_new';
+$user = 'nextcom_oligner_new';
+$password = 'P*u1RrSx.4{}';
 
 // 建立資料庫連線
 $conn = new mysqli($host, $user, $password, $dbname);
@@ -12,4 +12,5 @@ if ($conn->connect_error) {
     die("資料庫連接失敗: " . $conn->connect_error);
 }
 ?>
+
 
