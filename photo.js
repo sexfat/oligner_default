@@ -79,7 +79,7 @@ captureButton.addEventListener('click', () => {
             submitButton.style.display = 'inline-block';
             renewButton.style.display = 'inline-block';
         }
-    }, 'image/jpeg', 1.0);
+    }, 'image/png', 1.0);
 });
 
 // 上傳圖片

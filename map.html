@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #map-container {
+            width: 600px;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ccc;
+        }
+
+        #map-content {
+            width: 1200px;
+            height: 800px;
+            /* 假設地圖內容更大 */
+            background: url('images/5653187_2947938.jpg') no-repeat;
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: grab;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map-container">
+        <div id="map-content"></div>
+    </div>
+
+</body>
+<script>
+    const mapContent = document.getElementById("map-content");
+
+    let isDragging = false;
+    let startX, startY; // 記錄鼠標按下時的座標
+    let scrollLeft, scrollTop; // 記錄初始偏移量
+
+    mapContent.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        mapContent.style.cursor = "grabbing";
+
+        startX = e.clientX;
+        startY = e.clientY;
+
+        // 記錄當前偏移量
+        scrollLeft = parseInt(mapContent.style.left || "0");
+        scrollTop = parseInt(mapContent.style.top || "0");
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+
+        // 計算新的偏移量
+        const deltaX = e.clientX - startX;
+        const deltaY = e.clientY - startY;
+
+        mapContent.style.left = `${scrollLeft + deltaX}px`;
+        mapContent.style.top = `${scrollTop + deltaY}px`;
+    });
+
+    document.addEventListener("mouseup", () => {
+        if (isDragging) {
+            isDragging = false;
+            mapContent.style.cursor = "grab";
+        }
+    });
+
+
+</script>
+
+</html>
