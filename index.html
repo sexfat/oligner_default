@@ -9,7 +9,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+TC:wght@100..900&display=swap"
         rel="stylesheet">
+        
+        
     <title>OLigner TW丨開啟微笑旅程</title>
+   
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -42,6 +45,33 @@
             </h1>
         </footer>
     </div>
+     <script>
+        // 檢測是否在 LINE 瀏覽器中
+function isLineBrowser() {
+    return /Line/i.test(navigator.userAgent);
+}
+
+// 自動跳轉到 Chrome 瀏覽器
+function redirectToChrome() {
+    const currentUrl = window.location.href;
+
+    // Intent URL 格式，將嘗試打開 Chrome
+    const intentUrl = `intent://${currentUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`;
+
+    // 跳轉到 Intent URL
+    window.location.href = intentUrl;
+}
+
+// 初始化檢測與跳轉
+document.addEventListener('DOMContentLoaded', () => {
+    if (isLineBrowser()) {
+        // 自動跳轉到 Chrome 瀏覽器
+        redirectToChrome();
+    }
+});
+
+        
+    </script>
     <script src="script.js"></script>
 </body>
 

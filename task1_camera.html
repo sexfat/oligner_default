@@ -59,7 +59,7 @@
             <!-- 鏡頭 -->
             <div class="camera_bar">
                 <div class="taskPhoto">
-                    <input type="file" id="upload-image" accept="image/*" style="display: none;">
+                    <input type="file" id="upload-image" accept="image/jpeg, image/png, image/heic, image/heif" style="display: none;">
                     <button class="switch-camera" id="switch-camera"><img src="images/camera_switch.svg" alt="切換鏡頭"
                             srcset=""></button>
                     <button class="capture" id="capture"><img src="images/camera.svg" alt="拍照"></button>
@@ -80,7 +80,7 @@
 
         <div class="loading-overlay" id="loading-overlay">圖片正在上傳中...</div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.5/dist/heic2any.min.js"></script>
 <script src="photo.js"></script>
 </body>
 
