@@ -572,7 +572,7 @@ b {
 }
 .container_camera .mask .mask_image {
   position: absolute;
-  top: -60px;
+  top: -120px;
   z-index: 10;
   width: 100%;
   height: auto;

@@ -23,12 +23,12 @@
                 這樣我們才能找到你並加快評估結果唷
             </p> -->
             <div class="n5">
-              <img src="banner/image06.png" alt="">
+                <img src="banner/image06.png" alt="">
             </div>
             <a href="index.html" class="back-button">返回首頁</a>
         </div>
         <footer>
-            <p>© 2024 OLigner 歐耐恩隱形矯正
+            <p>© <span id="year"></span> OLigner 歐耐恩隱形矯正
                 <br>all rights reserved 版權所有
             </p>
             <h1 class="next71">製作公司: <a href="https://www.71next.com/" target="_blank"
@@ -42,6 +42,11 @@
         window.onload = function () {
             localStorage.removeItem('autoSavedSql_user_tasks');
         };
+        // 獲取伺服器的當前年份
+        const currentYear = new Date().getFullYear();
+
+        // 將年份插入到指定的元素中
+        document.getElementById("year").textContent = currentYear;
     </script>
 </body>
 
